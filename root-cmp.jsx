@@ -5,7 +5,7 @@ import { Home } from "./pages/home.jsx";
 // import { BookApp } from "./pages/book-app.jsx";
 // import { KeepApp } from "./pages/keep-app.jsx";
 import { AppHeader } from './js/cmps/AppHeader.jsx';
-import { EmailApp } from "./pages/email-app.jsx";
+import { EmailApp } from "./js/apps/mail/pages/email-app.jsx";
 import { AppFooter } from './js/cmps/AppFooter.jsx'
 import { About } from './pages/About.jsx';
 
