@@ -18,9 +18,7 @@ export function App() {
         </header>
         <main>
           <Switch>
-            {/* <Route path="/" component={BookApp} />*/}
             <Route exact path="/email-app" component={EmailApp} />
-            <Route path="/" component={KeepApp} />
             <Route path="/about" component={About} />
             <Route exact path="/" component={Home} />
           </Switch>
