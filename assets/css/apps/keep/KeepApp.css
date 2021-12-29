@@ -1,0 +1,43 @@
+/* LAYOUT */
+
+.notes-layout {
+    width: 80%
+}
+
+.notes-list {
+    columns: 3 250px;
+    width: 100%;
+}
+
+.keep-app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.notes-container h2 {
+    margin: 1rem 0;
+    color: rgb(212, 212, 212);
+    font-size: 1.1rem;
+}
+
+.notes-unpinned {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.notes-pinned {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.notes-unpinned {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

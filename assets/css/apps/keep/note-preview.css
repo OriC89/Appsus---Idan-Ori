@@ -1,0 +1,21 @@
+.note-expen {
+    position: relative;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    cursor: pointer;
+    transform: translateY(100%);
+}
+
+.note-expen .fas {
+    transition: 0.4s;
+}
+
+.note-expen .fas:hover {
+    transform: scale(1.2);
+}
+
+.colors {
+    opacity: 1;
+    pointer-events: visible;
+}
