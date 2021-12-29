@@ -5,7 +5,7 @@ import {EmailNav} from "../js/apps/mail/cmps/EmailNav.jsx"
 export function EmailApp(){
 
     return (
-        <section className="mail-app">
+        <section className="email-app">
           <EmailNav/>
           <EmailList/>
         </section>
