@@ -1,0 +1,32 @@
+header {
+    background-color: #000000;
+    padding: 0 0.5rem;
+    height: 65px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 65px;
+    padding: 0 0.5rem;
+}
+
+.nav-bar a {
+    text-decoration: none;
+}
+
+.nav-bar a i {
+    margin-inline-start: 1rem;
+    font-weight: 400;
+    font-family: Tahoma, Geneva, Verdana, sans-serif;
+    text-decoration: none;
+    font-size: 1.3rem;
+    color: #e09200;
+    transition: 0.3s;
+}
+
+.nav-bar a i:hover {
+    color: rgb(255, 255, 255);
+    transform: scale(1.1)
+}
