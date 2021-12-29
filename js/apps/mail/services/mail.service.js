@@ -26,16 +26,38 @@ function _createEmails() {
 }
 
 function getPreviewEmail(content) {
-    if (content.length > 30) return content.substring(0, 30);
+    if (content.length > 30) return (content.substring(0, 30) + '...')
     return content;
 }
 
 function query(filterBy) {
-    const emails = _loadEmailsFromStorage()
-    console.log('at storage', emails);
+    if (!emails || !emails.length) return;
+    const emails = _loadEmailsFromStorage();
     if (!filterBy) return Promise.resolve(emails)
     const filteredEmails = _getFilteredEmails(emails, filterBy)
     return Promise.resolve(filteredEmails)
+}
+
+function _getFilteredEmails(emails, filterBy) {
+    let { isSentByUser, isRead, search } = filterBy;
+    // var emailsToSearch = [];
+    // if(isRead) {
+    //     if(emails.isRead) emails.push()
+    // }
+
+
+
+    return emails.filter(email => {
+        return email.body.includes(search) && (
+            email.speed >= minSpeed && email.speed <= maxSpeed
+        )
+    })
+}
+
+
+function _getFilteredEmail(email, filterBy) {
+    email.body.includes(search) &&
+
 }
 
 function _saveEmailsToStorage(emails) {

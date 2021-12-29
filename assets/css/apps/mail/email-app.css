@@ -1,3 +1,24 @@
 .email-app{
     display: flex;
+    width:100%;
+}
+
+.mail-nav{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.email-list{
+   flex-grow: 1;
+   margin-right:40px;
+   margin-left: 40px;
+}
+
+.mail-preview{
+    display: flex;
+    justify-content: space-between;
+    border-color: black;
+    border-width: 5px;
+    border-style: solid;
 }

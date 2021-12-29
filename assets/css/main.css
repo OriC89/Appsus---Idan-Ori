@@ -2,19 +2,36 @@
 @import url('../css/cmps/AppHeader.css');
 @import url('../css/cmps/AppFooter.css');
 @import url('../css/About.css');
+@import url(./apps/mail/email-app.css);
+
 * {
     box-sizing: border-box;
-    padding: 0;
-    margin: 0;
 }
 
 body {
     background-color: rgb(241, 237, 237);
+    padding: 0;
+    margin: 0;
+}
+
+
+.home{
+    flex-grow: 1;
+}
+
+.app{
+    min-height: 100vh;
+}
+
+.main{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    min-height: 100vh;
 }
 
 #root {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 }

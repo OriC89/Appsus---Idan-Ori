@@ -6,4 +6,6 @@ footer {
     color: #e09200;
     height: 50px;
     width: 100%;
+    bottom: 0;
+    position: absolute;
 }
