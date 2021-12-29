@@ -9,10 +9,10 @@ class _AppHeader extends React.Component {
                     <NavLink to="/" ></NavLink>
                 </div>
                 <nav className="nav-bar">
-                    <NavLink activeClassName="my-active" exact to='/' ><i title="homepage" className=""></i></NavLink>
-                    <NavLink to="/email" ><i title="email" className=""></i></NavLink>
-                    <NavLink to="/notes" ><i title="notes" className=""></i></NavLink>
-                    <NavLink to="/about" ><i title="about" className=""></i></NavLink>
+                    <NavLink activeClassName="my-active" exact to='/' ><i title="homepage" className="">HomePage</i></NavLink>
+                    <NavLink to="/email" ><i title="email" className="">Email</i></NavLink>
+                    <NavLink to="/notes" ><i title="notes" className="">Notes</i></NavLink>
+                    <NavLink to="/about" ><i title="about" className="">About</i></NavLink>
                 </nav>
             </section>
         )
