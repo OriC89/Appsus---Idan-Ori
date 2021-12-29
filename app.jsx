@@ -5,7 +5,7 @@ export function App() {
         <h1>Appsus</h1>
       </header>
       <main>
-        <CarApp />
+        <Appsus />
       </main>
     </section>
   );
