@@ -1,6 +1,6 @@
 import { NoteTypeTxt } from './notesType/NoteTypeTxt.jsx'
 import { NoteTypeImg } from './notesType/NoteTypeImg.jsx'
-import { NoteTypeTodos } from './notesType/NoteTodos.jsx'
+import { NoteTypeTodos } from './notesType/NoteTypeTodos.jsx'
 import { NoteTypeVideo } from './notesType/NoteTypeVideo.jsx'
 import { Colors } from './ColorsPickInNotes.jsx'
 
@@ -35,7 +35,7 @@ export function NotePreview({ note, onRemoveNote, onToggleNotePin, onDuplicateNo
 
     const toggleActions = (ev, input) => {
         const elFuncs = ev.target.getElementsByClassName('note-actions')[0]
-        ev.stopPropagation()
+        ev.stopPropagation() // https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation
         if (!elFuncs) return
         if (input === 'enter') elFuncs.classList.add('expand-note')
         else elFuncs.classList.remove('expand-note')

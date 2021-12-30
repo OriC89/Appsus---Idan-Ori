@@ -66,9 +66,14 @@ const gNotes = storageService.load(NOTES_KEY) || [{
 
 
 function query(filterBy = null) {
-    const notes = _loadNotesFromStorage()
+    let notes = _loadNotesFromStorage()
+    if (!notes || !notes.length) {
+        notes = gNotes
+        _saveNotesToStorage()
+    }
     if (!filterBy) return Promise.resolve(notes)
     const filteredNotes = _getFilteredNotes(notes, filterBy)
+    console.log('notes from query', filteredNotes.length)
     return Promise.resolve(filteredNotes)
 }
 
@@ -88,8 +93,8 @@ function createNote(info, type) {
         style: { backgroundColor: "##ff0000" },
         isPinned: false
     }
-    gNotes.push(newNote);
-    _saveNotesToStorage();
+    gNotes.push(newNote)
+    _saveNotesToStorage()
 }
 
 // DELETE NOTE
@@ -97,9 +102,9 @@ function removeNote(noteId) {
     const deletedIdx = _getNoteIdx(noteId)
     if (deletedIdx !== -1) {
         gNotes.splice(deletedIdx, 1)
-        console.log(gNotes)
         _saveNotesToStorage
     }
+    return Promise.resolve()
 }
 
 // EDIT NOTE
@@ -126,14 +131,23 @@ function toggleNotePin(noteId) {
 
 // DUPLICATE NOTE
 function duplicateNote(noteId) {
-    const duplicateIdx = _getNoteIdx(noteId)
-    if (duplicateIdx !== -1) {
-        const newCopy = JSON.parse(JSON.stringify(gNotes[duplicateIdx]))
+    const newDuplicate = _getNoteIdx(noteId)
+    if (newDuplicate !== -1) {
+        const newCopy = JSON.parse(JSON.stringify(gNotes[newDuplicate]))
         newCopy.id = utilService.makeId()
         gNotes.push(newCopy)
         console.log(gNotes)
         _saveNotesToStorage()
     }
+}
+
+// GET NOTE BY ID 
+function _getNoteById(noteId) {
+    const notes = _loadNotesFromStorage()
+    var note = notes.find(function(note) {
+        return noteId === note.id
+    })
+    return Promise.resolve(note)
 }
 
 // GET NOTE INDEX

@@ -5,7 +5,7 @@ export function NoteTypeTodos({ noteId, info, selectedNote, onEditedNoteSave, on
     const labelRef = React.createRef()
 
     const handleRef = () => {
-        const inputs = Array.from(todosRef.current.children)
+        const inputs = Array.from(todosRef.current.children) // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from
         const Info = inputs.map(input => {
             const value = input.children[0].value;
             return { txt: value, doneAt: Date.now() }
@@ -42,7 +42,7 @@ export function NoteTypeTodos({ noteId, info, selectedNote, onEditedNoteSave, on
                     </ul>
                 </div>
                 <div className="edit-buttons ">
-                    <button className="btn edit-save" onClick={() => handleRef()}> save! </button>
+                    <button className="btn edit-save" onClick={() => handleRef()}> SAVE! </button>
                     <button className="btn edit-goback fas fa-times" onClick={() => onPrevPage()}></button>
                 </div>
 

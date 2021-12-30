@@ -32,7 +32,5 @@ export function NoteTypeVideo({ noteId, info, selectedNote, onEditedNoteSave, on
                 </div>
             </div>
         )
-
     }
-
 }
