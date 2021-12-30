@@ -1,3 +1,5 @@
+const { Route, Switch } = ReactRouterDOM;
+
 import { emailService } from "../services/mail.service.js";
 import { eventBusService } from "../../../services/event-bus-service.js";
 // import { storageService } from "../../../services/storage.service.js";
@@ -15,21 +17,25 @@ export class EmailApp extends React.Component {
     this.loadEmails();
   }
 
-  get ctgSearchParam() {
-    const urlSearchParams = new URLSearchParams(this.props.location.search);
-    return urlSearchParams.get("ctg");
-  }
+  // get ctgSearchParam() {
+  //   const urlSearchParams = new URLSearchParams(this.props.location.search);
+  //   return urlSearchParams.get("ctg");
+  // }
 
-  get carsToDisplay() {
-    const { emails } = this.state;
-    const ctg = this.ctgSearchParam;
-    return emails.filter((email) => !ctg || email.ctg === ctg);
-  }
+  // get carsToDisplay() {
+  //   const { emails } = this.state;
+  //   const ctg = this.ctgSearchParam;
+  //   return emails.filter((email) => !ctg || email.ctg === ctg);
+  // }
 
   loadEmails = () => {
+    emailService
+      .query({ category: "unread", search: "" })
+      .then((unReadEmails) => {
+        eventBusService.emit("unReadEmails-count", unReadEmails.length);
+      });
     const { filterBy } = this.state;
     emailService.query(filterBy).then((emails) => {
-      eventBusService.emit("emails-count", emails.length);
       this.setState({ emails });
     });
   };
@@ -42,10 +48,15 @@ export class EmailApp extends React.Component {
     const { emails } = this.state;
     return (
       <section className="email-app">
-        <React.Fragment>
-          <EmailNav onSetFilter={this.onSetFilter} />
-          <EmailList emails={emails} />
-        </React.Fragment>
+        <EmailNav onSetFilter={this.onSetFilter} />
+        <Switch>
+          <Route exact path="/email-app/:emailId" component={EmailDetails} />
+          <Route
+            exact
+            path="/email-app"
+            render={(props) => <EmailList emails={emails} />}
+          />
+        </Switch>
       </section>
     );
   }
