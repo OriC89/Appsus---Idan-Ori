@@ -57,7 +57,7 @@ export function NoteAdd({ inputType, setInputType, creatNote }) {
     }
 
     return (
-        <section className="notes-input notes-layout">
+        <section className="notes-input">
             <form className="notes-input-form" ref={formRef}>
                 <label htmlFor="notes-title"></label>
                 <input className="add-input" id="notes-title" type="text" placeholder="Note Title Here" autoComplete="off" onFocus={onFormInteraction} onBlur={onFormInactivity} ref={input1} />
@@ -66,12 +66,12 @@ export function NoteAdd({ inputType, setInputType, creatNote }) {
                     <input id="notes-content" type="text" placeholder={(inputType === 'note-todos' ? 'Todos Goes Here(use , to separate)' : 'Url goes here')} autoComplete="off" onFocus={onFormInteraction} onBlur={onFormInactivity} ref={input2} />
                 </div>
                 <div className="choose-type-btns" ref={actionBtns}>
-                    <i title="text" tabIndex="-1" onFocus={(ev) => { ev.target.click() }} onBlur={(ev) => { ev.target.blur() }} onClick={() => { onSetNoteType('note-txt') }} style={{ color: (inputType === 'note-txt' ? '#efc718' : 'white') }} className="far fa-file-alt"></i>
-                    <i title="todo list" tabIndex="-1" onFocus={(ev) => { ev.target.click() }} onBlur={(ev) => { ev.target.blur() }} onClick={() => { onSetNoteType('note-todos') }} style={{ color: (inputType === 'note-todos' ? '#efc718' : 'white') }} className="fas fa-list-ul"></i>
-                    <i title="image" tabIndex="-1" onFocus={(ev) => { ev.target.click() }} onBlur={(ev) => { ev.target.blur() }} onClick={() => { onSetNoteType('note-img') }} style={{ color: (inputType === 'note-img' ? '#efc718' : 'white') }} className="far fa-image"></i>
-                    <i title="youtube video" tabIndex="-1" onFocus={(ev) => { ev.target.click() }} onBlur={(ev) => { ev.target.blur() }} onClick={() => { onSetNoteType('note-video') }} style={{ color: (inputType === 'note-video' ? 'green' : 'white') }} className="fab fa-youtube"></i>
+                    <i title="Text" tabIndex="-1" onFocus={(ev) => { ev.target.click() }} onBlur={(ev) => { ev.target.blur() }} onClick={() => { onSetNoteType('note-txt') }} style={{ color: (inputType === 'note-txt' ? '#32CD32' : 'black') }} className="far fa-file-alt"></i>
+                    <i title="Todo List" tabIndex="-1" onFocus={(ev) => { ev.target.click() }} onBlur={(ev) => { ev.target.blur() }} onClick={() => { onSetNoteType('note-todos') }} style={{ color: (inputType === 'note-todos' ? '#efc718' : 'black') }} className="fas fa-list-ul"></i>
+                    <i title="Image" tabIndex="-1" onFocus={(ev) => { ev.target.click() }} onBlur={(ev) => { ev.target.blur() }} onClick={() => { onSetNoteType('note-img') }} style={{ color: (inputType === 'note-img' ? '#8A2BE2' : 'black') }} className="far fa-image"></i>
+                    <i title="Youtube Video" tabIndex="-1" onFocus={(ev) => { ev.target.click() }} onBlur={(ev) => { ev.target.blur() }} onClick={() => { onSetNoteType('note-video') }} style={{ color: (inputType === 'note-video' ? 'red' : 'black') }} className="fab fa-youtube"></i>
                 </div>
-                <button title="add note" tabIndex="-1" onFocus={(ev) => { ev.target.click() }} onBlur={(ev) => { ev.target.blur() }} onClick={onAddNote} ref={addNote} className="add-note-btn fas fa-plus add-input"></button>
+                <button title="Add Note" tabIndex="-1" onFocus={(ev) => { ev.target.click() }} onBlur={(ev) => { ev.target.blur() }} onClick={onAddNote} ref={addNote} style={{color:'#FFD700'}}className="add-note-btn fas fa-plus add-input"></button>
             </form>
         </section>
     )

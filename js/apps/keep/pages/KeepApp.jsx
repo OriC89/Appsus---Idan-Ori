@@ -12,7 +12,6 @@ export class KeepApp extends React.Component {
         inputType: 'note-txt',
     }
 
-
     componentDidMount() {
         this.loadNotes()
     }
@@ -35,7 +34,7 @@ export class KeepApp extends React.Component {
 
     onEditedNoteSave = (noteId, info) => {
         noteService.editNote(noteId, info)
-        this.setState({ selectedNote: null })
+        this.setState({ selectedNote: null }, this.loadNotes())
     }
 
     onCreateNote = (info) => {
@@ -63,29 +62,26 @@ export class KeepApp extends React.Component {
         }
     }
 
+
+
     onToggleNotePin = (noteId) => {
-        if (this.state.selectedNote) {
-            this.onShowModal('Pinned')
-        }
+        if (this.state.selectedNote) this.onShowModal('Pinned')
         noteService.toggleNotePin(noteId)
         this.loadNotes()
     }
 
     onDuplicateNote = (noteId) => {
-        if (this.state.selectedNote) {
-            this.onShowModal('Duplicated')
-        }
+        if (this.state.selectedNote) this.onShowModal('Duplicated')
         noteService.duplicateNote(noteId)
         this.loadNotes()
     }
 
     onRemoveNote = (noteId) => {
-        if (this.state.selectedNote) {
-            this.onShowModal('Deleted')
-        }
-        noteService.removeNote(noteId)
-        this.onPrevPage()
-        this.loadNotes()
+        // if (this.state.selectedNote) this.onShowModal('Deleted')
+        noteService.removeNote(noteId).then(()=>{
+            this.onPrevPage()
+            this.loadNotes()
+        })
     }
 
     onChangeNoteColor = (color, noteId) => {
@@ -96,16 +92,16 @@ export class KeepApp extends React.Component {
 
     render() {
 
-        const { inputType, selectedNote, isSelectedColor } = this.state;
-        console.log(this.state.notes);
+        const { inputType, selectedNote, isSelectedColor } = this.state
+        console.log(this.state.notes)
 
         return (
             <div className="notes-app">
-                {selectedNote && <ScreenExpand isOpen={selectedNote} closeModal={this.onGoBack} />}
+                {selectedNote && <ScreenExpand isOpen={selectedNote} closeModal={this.onPrevPage} />}
                 <NoteAdd inputType={inputType} setInputType={this.setInputType} creatNote={this.onCreateNote} />
 
                 <section className="notes-cards notes-layout">
-                    <h2>pinned</h2>
+                    <i title="Pinned Notes" className="center fas fa-thumbtack"></i>
                     <div className="notes-pinned">
                         <div className="cards-container">
                             <NotesList
@@ -119,13 +115,11 @@ export class KeepApp extends React.Component {
                                 onPrevPage={this.onPrevPage}
                                 onGetColor={this.onGetColor}
                                 isSelectedColor={isSelectedColor}
-                                onChangeNoteColor={this.onChangeNoteColor}
-
-                            />
+                                onChangeNoteColor={this.onChangeNoteColor} />
                         </div>
                     </div>
 
-                    <h2>notes</h2>
+                    <h2 className="center">NOTES</h2>
                     <div className="notes-general">
                         <div className="cards-container">
                             <NotesList
