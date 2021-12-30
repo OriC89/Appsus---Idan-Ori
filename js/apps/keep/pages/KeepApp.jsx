@@ -1,13 +1,17 @@
-import { noteService } from '../services/note.service.js'
-import { NotesList } from '../cmps/note-list.jsx'
+import { noteService } from "../services/note.service.js"
+import { NotesList } from "../cmps/NotesList.jsx"
+import { NoteAdd } from "../cmps/NoteAdd.jsx"
+import { ScreenExpand } from "../../../cmps/ScreenExpand.jsx"
+import { eventBusService } from "../../../services/event-bus-service.js"
 
 export class KeepApp extends React.Component {
     state = {
         notes: [],
-        inputType: 'txt',
-        isColor: false,
         selectedNote: null,
+        isSelectedColor: false,
+        inputType: 'note-txt',
     }
+
 
     componentDidMount() {
         this.loadNotes()
@@ -35,7 +39,7 @@ export class KeepApp extends React.Component {
     }
 
     onCreateNote = (info) => {
-        noteService.createNote(info, this.state.inputType)
+        noteService.createNote(info, this.state.inputType);
         this.loadNotes()
     }
 
@@ -48,86 +52,94 @@ export class KeepApp extends React.Component {
         this.setState({ selectedColor: !selectedColor, selectedNote: noteId })
     }
 
+    onShowModal = (type) => {
+        switch (type) {
+            case 'Duplicated': eventBusService.emit('user-msg', { txt: `Duplicated!`, type: 'Duplicated', time: 2000 })
+                break
+            case 'Pinned': eventBusService.emit('user-msg', { txt: `Pinned to top!`, type: 'pinned', time: 2000 })
+                break
+            case 'Deleted': eventBusService.emit('user-msg', { txt: `Deleted!`, type: 'Deleted', time: 2000 })
+                break
+        }
+    }
+
     onToggleNotePin = (noteId) => {
         if (this.state.selectedNote) {
-            this.onShowModal('pinned')
+            this.onShowModal('Pinned')
         }
-        noteService.toggleNotePin(noteId);
-        this.loadNotes();
+        noteService.toggleNotePin(noteId)
+        this.loadNotes()
     }
 
     onDuplicateNote = (noteId) => {
         if (this.state.selectedNote) {
-            this.onShowModal('duplicate')
+            this.onShowModal('Duplicated')
         }
-        noteService.duplicateNote(noteId);
-        this.loadNotes();
+        noteService.duplicateNote(noteId)
+        this.loadNotes()
     }
 
     onRemoveNote = (noteId) => {
         if (this.state.selectedNote) {
-            this.onShowModal('delete')
+            this.onShowModal('Deleted')
         }
-        noteService.removeNote(noteId);
+        noteService.removeNote(noteId)
         this.onPrevPage()
-        this.loadNotes();
+        this.loadNotes()
     }
 
     onChangeNoteColor = (color, noteId) => {
         noteService.editNote(noteId, { backgroundColor: color })
-        this.loadNotes();
+        this.loadNotes()
     }
 
-    onShowModal = (type) => {
-        switch (type) {
-            case 'pinned': eventBusService.emit('userMsg', { txt: `Pinned!`, type: 'pinned', time: 1000 })
-                break
-            case 'delete': eventBusService.emit('userMsg', { txt: `Note Deleted!`, type: 'delete', time: 1000 })
-                break
-            case 'duplicate': eventBusService.emit('userMsg', { txt: `Duplicated!`, type: 'duplicate', time: 1000 })
-                break
-        }
-    }
 
     render() {
-        const { selectedNote, isColor, notes } = this.state
+
+        const { inputType, selectedNote, isSelectedColor } = this.state;
         console.log(this.state.notes);
+
         return (
-            <div className="keep-app">
-                <section className="notes-container notes-layout">
-                    <h1>pinned</h1>
+            <div className="notes-app">
+                {selectedNote && <ScreenExpand isOpen={selectedNote} closeModal={this.onGoBack} />}
+                <NoteAdd inputType={inputType} setInputType={this.setInputType} creatNote={this.onCreateNote} />
+
+                <section className="notes-cards notes-layout">
+                    <h2>pinned</h2>
                     <div className="notes-pinned">
-                        <div className="notes-list">
+                        <div className="cards-container">
                             <NotesList
-                                notes={notes.filter(note => !note.isPinned)}
-                                isColor={isColor}
-                                onGetColor={this.onGetColor}
+                                notes={this.state.notes.filter(note => note.isPinned)}
+                                onRemoveNote={this.onRemoveNote}
                                 onToggleNotePin={this.onToggleNotePin}
                                 onDuplicateNote={this.onDuplicateNote}
                                 onEditMode={this.onEditMode}
                                 selectedNote={selectedNote}
                                 onEditedNoteSave={this.onEditedNoteSave}
                                 onPrevPage={this.onPrevPage}
+                                onGetColor={this.onGetColor}
+                                isSelectedColor={isSelectedColor}
                                 onChangeNoteColor={this.onChangeNoteColor}
-                                onRemoveNote={this.onRemoveNote}
+
                             />
                         </div>
                     </div>
-                    <h1>Unpinned Notes</h1>
-                    <div className="notes-unpinned">
-                        <div className="notes-list">
+
+                    <h2>notes</h2>
+                    <div className="notes-general">
+                        <div className="cards-container">
                             <NotesList
-                                notes={notes.filter(note => !note.isPinned)}
-                                onRemoveNote={this.onRemoveNote} // DELETE NOTE
+                                notes={this.state.notes.filter(note => !note.isPinned)}
+                                onRemoveNote={this.onRemoveNote}
                                 onToggleNotePin={this.onToggleNotePin}
                                 onDuplicateNote={this.onDuplicateNote}
                                 onEditMode={this.onEditMode}
-                                onSaveEdit={this.onEditedNoteSave}
-                                onGoBack={this.onPrevPage}
-                                onGetColor={this.onGetColor}
-                                onChangeNoteColor={this.onChangeNoteColor}
                                 selectedNote={selectedNote}
-                                isColor={isColor}
+                                onEditedNoteSave={this.onEditedNoteSave}
+                                onPrevPage={this.onPrevPage}
+                                onGetColor={this.onGetColor}
+                                isSelectedColor={isSelectedColor}
+                                onChangeNoteColor={this.onChangeNoteColor}
                             />
                         </div>
                     </div>

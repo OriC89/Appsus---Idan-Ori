@@ -13,21 +13,21 @@ export const noteService = {
 const NOTES_KEY = 'notesDB'
 const gNotes = storageService.load(NOTES_KEY) || [{
         id: utilService.makeId(5),
-        type: "txt",
+        type: "note-txt",
         info: { txt: "React is just another Reaction" },
         style: { backgroundColor: "#FFD700" },
         isPinned: false
     },
     {
         id: utilService.makeId(5),
-        type: "img",
+        type: "note-img",
         info: { url: "./assets/img/by-img.jpg", title: "The throphy is ours!" },
         style: { backgroundColor: "#FF1493" },
         isPinned: false
     },
     {
         id: utilService.makeId(5),
-        type: "todos",
+        type: "note-todos",
         info: {
             label: "Get done or you're done",
             todos: [
@@ -43,28 +43,26 @@ const gNotes = storageService.load(NOTES_KEY) || [{
     },
     {
         id: utilService.makeId(5),
-        type: "video",
+        type: "note-video",
         info: { url: "https://www.youtube.com/watch?v=fqJmgOZlHQM&t=13s", title: "Victory in the cup finals!" },
         style: { backgroundColor: "#7FFF00" },
         isPinned: false
     },
     {
         id: utilService.makeId(5),
-        type: "txt",
+        type: "note-txt",
         info: { txt: "Dinner, 20:00 with the Cohe's" },
         style: { backgroundColor: "#0000FF" },
         isPinned: false
     },
     {
         id: utilService.makeId(5),
-        type: "video",
-        info: { url: "https://www.youtube.com/watch?v=0kt_D4PFfp0", title: "DEFEATING Hapoel Aviv!" },
+        type: "note-video",
+        info: { url: "https://www.youtube.com/watch?v=0kt_D4PFfp0", title: "For Oren Yaniv :-)" },
         style: { backgroundColor: "#DC143C" },
         isPinned: true,
     },
 ]
-
-_saveNotesToStorage()
 
 
 function query(filterBy = null) {
@@ -73,11 +71,6 @@ function query(filterBy = null) {
     const filteredNotes = _getFilteredNotes(notes, filterBy)
     return Promise.resolve(filteredNotes)
 }
-
-// function query() {
-//     const notes = _loadNotesFromStorage()
-//     return Promise.resolve(notes);
-// }
 
 function _getFilteredNotes(notes, filterBy) {
     let { type, txt } = filterBy
@@ -104,6 +97,7 @@ function removeNote(noteId) {
     const deletedIdx = _getNoteIdx(noteId)
     if (deletedIdx !== -1) {
         gNotes.splice(deletedIdx, 1)
+        console.log(gNotes)
         _saveNotesToStorage
     }
 }
@@ -137,6 +131,7 @@ function duplicateNote(noteId) {
         const newCopy = JSON.parse(JSON.stringify(gNotes[duplicateIdx]))
         newCopy.id = utilService.makeId()
         gNotes.push(newCopy)
+        console.log(gNotes)
         _saveNotesToStorage()
     }
 }

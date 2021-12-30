@@ -1,14 +1,14 @@
 header {
-    background-color: #000000;
+    background-color: rgb(163, 156, 156);
     padding: 0 0.5rem;
-    height: 65px;
+    height: 50px;
 }
 
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 65px;
+    height: 50px;
     padding: 0 0.5rem;
 }
 
@@ -21,8 +21,8 @@ header {
     font-weight: 400;
     font-family: Tahoma, Geneva, Verdana, sans-serif;
     text-decoration: none;
-    font-size: 1.3rem;
-    color: #e09200;
+    font-size: 1rem;
+    color: #000000;
     transition: 0.3s;
 }
 
