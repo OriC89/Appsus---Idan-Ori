@@ -13,8 +13,8 @@ const KEY = 'emailDB'
 const loggedinUser = { email: 'user@appsus.com', fullname: 'Mahatma Appsus' }
 
 const defaultEmails = [
-    { id: 'e101', by: 'Me', subject: 'This Email was sent by me!', body: 'Would love to catch up sometimes', isRead: false, sentAt: 1640788195648, to: 'momo@momo.com' },
-    { id: 'e102', by: 'Momo', subject: 'This Email was sent to me!', body: 'Would love to catch up sometimes', isRead: false, sentAt: 1551133930594, to: 'user@appsus.com' }
+    { id: 'e101', by: 'Me', subject: 'This Email was sent by me!', body: 'Would love to catch up sometimes', isRead: false, sentAt: 1640788195648, to: 'momo@momo.com', isStarred: false, isRead: false },
+    { id: 'e102', by: 'Momo', subject: 'This Email was sent to me!', body: 'Would love to catch up sometimes', isRead: false, sentAt: 1551133930594, to: 'user@appsus.com', isStarred: false, isRead: false }
 ]
 
 _createEmails();
@@ -31,33 +31,37 @@ function getPreviewEmail(content) {
 }
 
 function query(filterBy) {
-    if (!emails || !emails.length) return;
+    // if (!emails || !emails.length) return;
     const emails = _loadEmailsFromStorage();
-    if (!filterBy) return Promise.resolve(emails)
-    const filteredEmails = _getFilteredEmails(emails, filterBy)
-    return Promise.resolve(filteredEmails)
+    // if (!filterBy) return Promise.resolve(emails)
+    const filteredEmails = _getFilteredEmails(emails, filterBy);
+    return Promise.resolve(filteredEmails);
 }
 
 function _getFilteredEmails(emails, filterBy) {
-    let { isSentByUser, isRead, search } = filterBy;
-    // var emailsToSearch = [];
-    // if(isRead) {
-    //     if(emails.isRead) emails.push()
-    // }
-
-
-
-    return emails.filter(email => {
-        return email.body.includes(search) && (
-            email.speed >= minSpeed && email.speed <= maxSpeed
-        )
+    let { category, search } = filterBy;
+    var categorizedEmails = [];
+    if (category === 'starred') {
+        categorizedEmails = emails.filter(email => { return email.isStarred })
+    }
+    else if (category === 'read') {
+        categorizedEmails = emails.filter(email => { return email.isRead })
+    }
+    else if (category === 'unRead') {
+        categorizedEmails = emails.filter(email => { return !email.isRead })
+    }
+    else if (category === 'inbox' || !category) {
+        categorizedEmails = emails.filter(email => { return !(email.by === 'Me') })
+    }
+    else if (category === 'sentMail') {
+        categorizedEmails = emails.filter(email => { return email.by === 'Me' })
+    }
+    else {
+        categorizedEmails = emails.filter(email => { return (email.lable === category) })
+    }
+    return categorizedEmails.filter(categorizedEmail => {
+        return categorizedEmail.body.includes(search)
     })
-}
-
-
-function _getFilteredEmail(email, filterBy) {
-    email.body.includes(search) &&
-
 }
 
 function _saveEmailsToStorage(emails) {
