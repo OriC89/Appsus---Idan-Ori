@@ -1,5 +1,5 @@
 // import { storageService } from "../../../services/storage.service.js";
-// import { mailService } from "../services/mail.service.js";
+// import { emailService } from "../services/mail.service.js";
 import { EmailPreview } from "./EmailPreview.jsx";
 
 export function EmailList({ emails }) {

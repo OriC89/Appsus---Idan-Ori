@@ -5,7 +5,9 @@ import { storageService } from '../../../services/storage.service.js'
 
 export const emailService = {
     query,
-    getPreviewEmail
+    getPreviewEmail,
+    getEmailById,
+    getIsReadTxt
 }
 
 const KEY = 'emailDB'
@@ -13,8 +15,8 @@ const KEY = 'emailDB'
 const loggedinUser = { email: 'user@appsus.com', fullname: 'Mahatma Appsus' }
 
 const defaultEmails = [
-    { id: 'e101', by: 'Me', subject: 'This Email was sent by me!', body: 'Would love to catch up sometimes', isRead: false, sentAt: 1640788195648, to: 'momo@momo.com', isStarred: false, isRead: false },
-    { id: 'e102', by: 'Momo', subject: 'This Email was sent to me!', body: 'Would love to catch up sometimes', isRead: false, sentAt: 1551133930594, to: 'user@appsus.com', isStarred: false, isRead: false }
+    { id: 'e101', by: 'Me', subject: 'Rent', body: 'I dont have money, honey!', isRead: false, sentAt: 1640788195648, to: 'momo@momo.com', isStarred: false, isRead: true },
+    { id: 'e102', by: 'Momo', subject: 'Rent', body: 'Youre behind with rent!', isRead: false, sentAt: 1551133930594, to: 'Me', isStarred: false, isRead: false }
 ]
 
 _createEmails();
@@ -33,7 +35,6 @@ function getPreviewEmail(content) {
 function query(filterBy) {
     // if (!emails || !emails.length) return;
     const emails = _loadEmailsFromStorage();
-    // if (!filterBy) return Promise.resolve(emails)
     const filteredEmails = _getFilteredEmails(emails, filterBy);
     return Promise.resolve(filteredEmails);
 }
@@ -62,6 +63,19 @@ function _getFilteredEmails(emails, filterBy) {
     return categorizedEmails.filter(categorizedEmail => {
         return categorizedEmail.body.includes(search)
     })
+}
+
+function getEmailById(emailId) {
+    const emails = _loadEmailsFromStorage()
+    var email = emails.find(function (email) {
+        return emailId === email.id
+    })
+    return Promise.resolve(email)
+}
+
+function getIsReadTxt(isRead) {
+    if (isRead) return 'Read';
+    return 'Unread';
 }
 
 function _saveEmailsToStorage(emails) {
