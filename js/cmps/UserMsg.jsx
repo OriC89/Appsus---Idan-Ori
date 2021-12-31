@@ -1,34 +1,42 @@
-// import { eventBusService } from '../services/event-bus-service.js'
+import { eventBusService } from '../services/event-bus-service.js'
 
-// export class UserMsg extends React.Component {
-//     state = {
-//         msg: null
-//     }
+export class UserMsg extends React.Component {
 
-//     removeEventBus
-//     timeOutId
+  state = {
+    msg: null
+  }
+  removeEventBus
+  timeoutId
 
+  componentDidMount() {
+    this.removeEventBus = eventBusService.on('user-msg', (msg) => {
+      this.setState({ msg }, () => {
+        if (this.timeoutId) clearTimeout(this.timeoutId)
+        this.timeoutId = setTimeout(this.onCloseMsg, msg.time)
+      })
+    })
+  } 
 
-//     componentDidMount() {
-//         this.removeEventBus = eventBusService.on('userMsg', (msg) => {
-//             this.setState({ msg }, () => {
-//                 if (this.timeOutId) clearTimeout(this.timeOutId)
-//                 this.timeOutId = setTimeout(this.onCloseMsg, msg.time)
-//             })
-//         })
-//     }
+  componentWillUnmount() {
+    this.removeEventBus()
+  }
 
-//     componentWillUnmount() {
-//         this.removeEventBus()
-//     }
+  onCloseMsg = () => {
+    this.setState({ msg: null })
+    clearTimeout(this.timeoutId)
+  }
 
-//     onCloseMsg = () => {
-//         this.setState({ msg: null })
-//         clearTimeout(this.timeOutId)
-//       }
-
-//       userAnswer = (answer) => {
-//         eventBusService.emit('userAnswer', answer);
-//         this.onCloseMsg()
-//       }
-// }
+  render() {
+    const { msg } = this.state
+    if (!msg) return <React.Fragment></React.Fragment>
+    if (msg.type === 'Duplicated' || 'Pinned' ||'Deleted') return (
+      <React.Fragment>
+        <section className={`user-msg message`}>
+          <button className="user-msg-exit-btn" onClick={this.onCloseMsg}>X</button>
+          <h1>{msg.txt}</h1>
+        </section>
+        <div className="user-msg-screen"></div>
+      </React.Fragment>
+    )
+  }
+}

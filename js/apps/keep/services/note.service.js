@@ -15,14 +15,14 @@ const gNotes = storageService.load(NOTES_KEY) || [{
         id: utilService.makeId(5),
         type: "note-txt",
         info: { txt: "React is just another Reaction" },
-        style: { backgroundColor: "#FFD700" },
+        style: { backgroundColor: "#F0F8FF" },
         isPinned: false
     },
     {
         id: utilService.makeId(5),
         type: "note-img",
         info: { url: "./assets/img/by-img.jpg", title: "The throphy is ours!" },
-        style: { backgroundColor: "#FF1493" },
+        style: { backgroundColor: "#F5F5F5" },
         isPinned: false
     },
     {
@@ -38,28 +38,28 @@ const gNotes = storageService.load(NOTES_KEY) || [{
                 { txt: "Buy 3nd Monitor", doneAt: null },
             ],
         },
-        style: { backgroundColor: "#8B008B" },
+        style: { backgroundColor: "#90EE90" },
         isPinned: true
     },
     {
         id: utilService.makeId(5),
         type: "note-video",
         info: { url: "https://www.youtube.com/watch?v=fqJmgOZlHQM&t=13s", title: "Victory in the cup finals!" },
-        style: { backgroundColor: "#7FFF00" },
+        style: { backgroundColor: "#90EE90" },
         isPinned: false
     },
     {
         id: utilService.makeId(5),
         type: "note-txt",
         info: { txt: "Dinner, 20:00 with the Cohe's" },
-        style: { backgroundColor: "#0000FF" },
+        style: { backgroundColor: "#F5F5F5" },
         isPinned: false
     },
     {
         id: utilService.makeId(5),
         type: "note-video",
         info: { url: "https://www.youtube.com/watch?v=0kt_D4PFfp0", title: "For Oren Yaniv :-)" },
-        style: { backgroundColor: "#DC143C" },
+        style: { backgroundColor: "#F0F8FF" },
         isPinned: true,
     },
 ]
@@ -69,18 +69,20 @@ function query(filterBy = null) {
     let notes = _loadNotesFromStorage()
     if (!notes || !notes.length) {
         notes = gNotes
-        _saveNotesToStorage()
+        _saveNotesToStorage
     }
     if (!filterBy) return Promise.resolve(notes)
     const filteredNotes = _getFilteredNotes(notes, filterBy)
-    console.log('notes from query', filteredNotes.length)
+    console.log('notes from query', filteredNotes)
+    console.log(filteredNotes);
     return Promise.resolve(filteredNotes)
 }
 
 function _getFilteredNotes(notes, filterBy) {
     let { type, txt } = filterBy
     return notes.filter(note => {
-        return note.type.includes(type) && note.info.txt >= txt
+        return note.type.includes(type) && (note.info.txt ? note.info.txt.includes(txt) : false ||
+            note.info.title ? note.info.title.includes(txt) : false)
     })
 }
 
@@ -102,7 +104,7 @@ function removeNote(noteId) {
     const deletedIdx = _getNoteIdx(noteId)
     if (deletedIdx !== -1) {
         gNotes.splice(deletedIdx, 1)
-        _saveNotesToStorage
+        _saveNotesToStorage()
     }
     return Promise.resolve()
 }
@@ -136,7 +138,6 @@ function duplicateNote(noteId) {
         const newCopy = JSON.parse(JSON.stringify(gNotes[newDuplicate]))
         newCopy.id = utilService.makeId()
         gNotes.push(newCopy)
-        console.log(gNotes)
         _saveNotesToStorage()
     }
 }
@@ -144,7 +145,7 @@ function duplicateNote(noteId) {
 // GET NOTE BY ID 
 function _getNoteById(noteId) {
     const notes = _loadNotesFromStorage()
-    var note = notes.find(function(note) {
+    var note = notes.find(note => {
         return noteId === note.id
     })
     return Promise.resolve(note)

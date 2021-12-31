@@ -9,7 +9,7 @@ export class NoteFilter extends React.Component {
 
     handleChange = ({ target }) => {
         const field = target.name
-        const value = target.value
+        const value = (target.type === 'number') ? +target.value : target.value
         this.setState((prevState) => ({ filterBy: { ...prevState.filterBy, [field]: value } }), () => {
             this.props.onSetFilter(this.state.filterBy)
         })
@@ -18,7 +18,6 @@ export class NoteFilter extends React.Component {
     onSubmitFilter = (ev) => {
         ev.preventDefault()
         this.props.onSetFilter(this.state.filterBy)
-        this.cleanForm()
     }
 
     cleanForm = () => {
@@ -32,7 +31,7 @@ export class NoteFilter extends React.Component {
                 <label
                     htmlFor="by-type">Type:</label>
                 <input
-                    placeholder="text/img/todos/video"
+                    placeholder="txt / img /todos / video"
                     type="text"
                     min="0"
                     id="by-type"
