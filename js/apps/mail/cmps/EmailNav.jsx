@@ -20,6 +20,7 @@ export class EmailNav extends React.Component {
 
   onSetCategory = ({ target }) => {
     const category = target.id;
+    this.props.history.push("/email-app");
     this.setState(
       (prevState) => ({
         filterBy: { ...prevState.filterBy, category: category },
