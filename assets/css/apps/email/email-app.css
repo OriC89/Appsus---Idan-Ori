@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap');
+
+.email-app{
+    display: flex;
+    height: 70vh;
+}
+
+.mail-nav{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 83vh;
+    border-right-color: black;
+    border-right-width: 2px;
+    border-right-style: solid;
+}
+
+.clean-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav-btn{
+  font-family: 'Open Sans Condensed', sans-serif;
+  border-radius: 4px;
+  background-color: #04AA6D;
+  border: none;
+  color: white;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.nav-btn:hover{
+    cursor: pointer;
+    background-color: #038153;
+}
+.email-list{
+    font-family: 'Open Sans Condensed', sans-serif;
+   flex-grow: 1;
+}
+
+.email-preview{
+    border-color: black;
+    border-width: 2px;
+    border-style: solid;
+    border-left: none;
+}
+
+.preview-header{
+    display: flex;
+    justify-content: space-between;
+    text-decoration:underline;
+}
+
+.email-content{
+    color: rgb(92, 89, 89);
+}
+
+.email-edit{
+    flex-grow: 1;
+    padding-left: 10%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.email-edit input{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.email-edit button{
+    margin-top: 20px;
+}
+
+.email-edit .message-body{
+    height: 300px;
+    width:500px;
+    text-align:unset
+}
+
+@media only screen and (min-width: 780px){
+
+    .preview-summary{
+        display: flex;
+    }
+    
+    .preview-summary h4{
+        margin:20px;
+    }
+
+    .preview-summary h2{
+        transform: translateY(10px);
+    }
+
+    .mail-nav{
+        min-height: 86vh;
+    }
+}

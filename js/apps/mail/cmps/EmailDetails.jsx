@@ -1,6 +1,7 @@
 const { Link } = ReactRouterDOM;
-import { emailService } from "../services/mail.service.js";
+import { emailService } from "../services/email.service.js";
 import { utilService } from "../../../services/util.service.js";
+import { eventBusService } from "../../../services/event-bus-service.js";
 
 export class EmailDetails extends React.Component {
   state = {
@@ -8,7 +9,6 @@ export class EmailDetails extends React.Component {
   };
 
   componentDidMount() {
-    console.log("props in EmailDetails", this.props);
     this.loadEmail();
   }
 
@@ -24,6 +24,17 @@ export class EmailDetails extends React.Component {
     this.props.history.push("/email-app");
   };
 
+  onRemoveEmail = () => {
+    const { id } = this.state.email;
+    emailService.removeEmail(id).then(() => {
+      eventBusService.emit("user-msg", {
+        txt: "Email is deleted !",
+        type: "danger",
+      });
+      this.onGoBack();
+    });
+  };
+
   render() {
     const { email } = this.state;
     if (!email) return <h1>loading</h1>;
@@ -36,6 +47,7 @@ export class EmailDetails extends React.Component {
           {email.to}
         </div>
         <div className="email-body">{email.body}</div>
+        <button onClick={this.onRemoveEmail}>Remove this Email</button>
 
         <Link to="/email-app">Go Back</Link>
       </section>

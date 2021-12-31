@@ -5,9 +5,11 @@ import { storageService } from '../../../services/storage.service.js'
 
 export const emailService = {
     query,
-    getPreviewEmail,
+    getPreviewTxt,
     getEmailById,
-    getIsReadTxt
+    getIsReadTxt,
+    saveEmail,
+    removeEmail
 }
 
 const KEY = 'emailDB'
@@ -15,8 +17,11 @@ const KEY = 'emailDB'
 const loggedinUser = { email: 'user@appsus.com', fullname: 'Mahatma Appsus' }
 
 const defaultEmails = [
-    { id: 'e101', by: 'Me', subject: 'Rent', body: 'I dont have money, honey!', isRead: false, sentAt: 1640788195648, to: 'momo@momo.com', isStarred: false, isRead: true },
-    { id: 'e102', by: 'Momo', subject: 'Rent', body: 'Youre behind with rent!', isRead: false, sentAt: 1551133930594, to: 'Me', isStarred: false, isRead: false }
+    { id: 'e101', by: 'Me', senderEmail: 'user@appsus.com', subject: 'Rent', body: 'I dont have money, honey!', isRead: true, sentAt: 1640788195648, to: 'Momo', isStarred: false },
+    { id: 'e102', by: 'Momo', subject: 'Rent', body: 'Youre behind with rent!', isRead: false, sentAt: 1551133930594, to: 'Me', isStarred: true },
+    { id: 'e103', by: 'Robert', sendEmail: 'roberto@walla.co.il', subject: 'Vegtables', body: 'Your Vegtables are not selling quick enough, sadly i have to termenate our buisness relationship.. it has been great, i hope you get your rent money!', isRead: true, sentAt: 1551163930594, to: 'Me', isStarred: true },
+    { id: 'e103', by: 'Me', sendEmail: 'user@appsus.com', subject: 'Finally- Rent!!', body: 'I now have the money, honey!', isRead: true, sentAt: 1751163930594, to: 'Me', isStarred: true }
+
 ]
 
 _createEmails();
@@ -27,14 +32,9 @@ function _createEmails() {
     _saveEmailsToStorage(emails);
 }
 
-function getPreviewEmail(content) {
-    if (content.length > 30) return (content.substring(0, 30) + '...')
-    return content;
-}
-
 function query(filterBy) {
-    // if (!emails || !emails.length) return;
     const emails = _loadEmailsFromStorage();
+    if (!emails || !emails.length) return Promise.resolve(defaultEmails);
     const filteredEmails = _getFilteredEmails(emails, filterBy);
     return Promise.resolve(filteredEmails);
 }
@@ -65,12 +65,40 @@ function _getFilteredEmails(emails, filterBy) {
     })
 }
 
+function saveEmail(email) {
+    return email.id ? _updateEmail(email) : _addEmail(email)
+}
+
+function _addEmail(emailToSave) {
+    let emails = _loadEmailsFromStorage()
+    var email = emailToSave
+    email.sentAt = Date.now();
+    if (!email.subject) email.subject = 'No Subject'
+    email.id = utilService.makeId(4)
+    emails = [email, ...emails]
+    _saveEmailsToStorage(emails);
+    return Promise.resolve()
+}
+
+function removeEmail(emailId) {
+    let emails = _loadEmailsFromStorage()
+    emails = emails.filter(email => email.id !== emailId)
+    _saveEmailsToStorage(emails);
+    return Promise.resolve()
+}
+
 function getEmailById(emailId) {
     const emails = _loadEmailsFromStorage()
     var email = emails.find(function (email) {
         return emailId === email.id
     })
     return Promise.resolve(email)
+}
+
+
+function getPreviewTxt(content) {
+    if (content.length > 30) return (content.substring(0, 30) + '...')
+    return content;
 }
 
 function getIsReadTxt(isRead) {

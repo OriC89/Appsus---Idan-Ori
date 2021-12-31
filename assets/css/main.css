@@ -1,8 +1,9 @@
+
 @import url('../css/parts/fonts.css');
 @import url('../css/cmps/AppHeader.css');
 @import url('../css/cmps/AppFooter.css');
 @import url('../css/About.css');
-@import url('./apps/mail/email-app.css');
+@import url('./apps/email/email-app.css');
 @import url('../css/apps/keep/KeepApp.css');
 @import url('../css/parts/helpers.css');
 
