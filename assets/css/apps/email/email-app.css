@@ -35,10 +35,15 @@
   margin-bottom: 2px;
 }
 
+.selected-btn{
+    background-color: #02633f;
+}
+
 .nav-btn:hover{
     cursor: pointer;
     background-color: #038153;
 }
+
 .email-list{
     font-family: 'Open Sans Condensed', sans-serif;
    flex-grow: 1;
@@ -49,6 +54,10 @@
     border-width: 2px;
     border-style: solid;
     border-left: none;
+}
+
+.read{
+    background-color: rgb(202, 200, 200);
 }
 
 .preview-header{

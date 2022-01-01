@@ -5,20 +5,29 @@ class _EmailNav extends React.Component {
   state = {
     unReadCount: 0,
     filterBy: {
-      category: null,
+      category: "inbox",
       search: "",
     },
     sortBy: null,
+    isAdding: false,
   };
 
   componentDidMount = () => {
-    eventBusService.on("unread-count", (unReadCount) => {
+    this.removeEventBus = eventBusService.on("adding-finished", (isAdding) => {
+      this.setState({ isAdding });
+    });
+    this.removeEventBus = eventBusService.on("unread-count", (unReadCount) => {
       this.setState({ unReadCount });
     });
   };
 
+  componentWillUnmount() {
+    this.removeEventBus();
+  }
+
   onSetSearch = ({ target }) => {
-    const value = target.value;
+    if (this.state.isAdding) return;
+    var value = target.value;
     this.setState(
       (prevState) => ({ filterBy: { ...prevState.filterBy, search: value } }),
       () => {
@@ -29,6 +38,7 @@ class _EmailNav extends React.Component {
   };
 
   onSetCategory = ({ target }) => {
+    this.state.isAdding = false;
     const category = target.id;
     this.setState(
       (prevState) => ({
@@ -41,10 +51,29 @@ class _EmailNav extends React.Component {
     );
   };
 
+  getHighlightFilter = (id, category) => {
+    if (id === category && !this.state.isAdding) return "nav-btn selected-btn";
+    else return "nav-btn";
+  };
+
+  getWriteEmailClass = () => {
+    if (this.state.isAdding) return "nav-btn clean-link selected-btn";
+    else return "nav-btn clean-link";
+  };
+
+  setIsWriting = () => {
+    this.state.isAdding = !this.state.isAdding;
+  };
+
   render() {
+    const { category } = this.state.filterBy;
     return (
       <section className="mail-nav">
-        <Link className="compose-btn nav-btn clean-link" to="/email-app/edit">
+        <Link
+          className={this.getWriteEmailClass()}
+          to="/email-app/edit"
+          onClick={this.setIsWriting}
+        >
           ➕ Write Email
         </Link>
         <div className="search-input">
@@ -58,16 +87,32 @@ class _EmailNav extends React.Component {
             onChange={this.onSetSearch}
           />
         </div>
-        <div id="inbox" onClick={this.onSetCategory} className="nav-btn">
+        <div
+          id="inbox"
+          onClick={this.onSetCategory}
+          className={this.getHighlightFilter("inbox", category)}
+        >
           📥 Inbox
         </div>
-        <div id="read" onClick={this.onSetCategory} className="nav-btn">
+        <div
+          id="read"
+          onClick={this.onSetCategory}
+          className={this.getHighlightFilter("read", category)}
+        >
           Read Messages
         </div>
-        <div id="unRead" onClick={this.onSetCategory} className="nav-btn">
+        <div
+          id="unRead"
+          onClick={this.onSetCategory}
+          className={this.getHighlightFilter("unRead", category)}
+        >
           Unread Messages({this.state.unReadCount})
         </div>
-        <div id="sentMail" onClick={this.onSetCategory} className="nav-btn">
+        <div
+          id="sentMail"
+          onClick={this.onSetCategory}
+          className={this.getHighlightFilter("sentMail", category)}
+        >
           Sent Messages
         </div>
       </section>

@@ -6,6 +6,7 @@ import { storageService } from '../../../services/storage.service.js'
 export const emailService = {
     query,
     getPreviewTxt,
+    getPreviewClass,
     getEmailById,
     getIsReadTxt,
     saveEmail,
@@ -17,10 +18,10 @@ const KEY = 'emailDB'
 const loggedinUser = { email: 'user@appsus.com', fullname: 'Mahatma Appsus' }
 
 const defaultEmails = [
-    { id: 'e101', by: 'Me', senderEmail: 'user@appsus.com', subject: 'Rent', body: 'I dont have money, honey!', isRead: true, sentAt: 1640788195648, to: 'Momo', isStarred: false },
     { id: 'e102', by: 'Momo', subject: 'Rent', body: 'Youre behind with rent!', isRead: false, sentAt: 1551133930594, to: 'Me', isStarred: true },
-    { id: 'e103', by: 'Robert', sendEmail: 'roberto@walla.co.il', subject: 'Vegtables', body: 'Your Vegtables are not selling quick enough, sadly i have to termenate our buisness relationship.. it has been great, i hope you get your rent money!', isRead: true, sentAt: 1551163930594, to: 'Me', isStarred: true },
-    { id: 'e103', by: 'Me', sendEmail: 'user@appsus.com', subject: 'Finally- Rent!!', body: 'I now have the money, honey!', isRead: true, sentAt: 1751163930594, to: 'Me', isStarred: true }
+    { id: 'e103', by: 'Robert', senderEmail: 'roberto@walla.co.il', subject: 'Vegtables', body: 'Your Vegtables are not selling quick enough, sadly i have to termenate our buisness relationship.. it has been great, i hope you get your rent money!', isRead: true, sentAt: 1551163930594, to: 'Me', isStarred: true },
+    { id: 'e101', by: 'Me', senderEmail: 'user@appsus.com', subject: 'Rent', body: 'I dont have money, honey!', isRead: true, sentAt: 1640788195648, to: 'Momo', isStarred: false },
+    { id: 'e104', by: 'Me', sendEmail: 'user@appsus.com', subject: 'Finally- Rent!!', body: 'I now have the money, honey!', isRead: true, sentAt: 1751163930594, to: 'Momo', isStarred: true }
 
 ]
 
@@ -46,10 +47,10 @@ function _getFilteredEmails(emails, filterBy) {
         categorizedEmails = emails.filter(email => { return email.isStarred })
     }
     else if (category === 'read') {
-        categorizedEmails = emails.filter(email => { return email.isRead })
+        categorizedEmails = emails.filter(email => { return (email.isRead && email.to === 'Me') })
     }
     else if (category === 'unRead') {
-        categorizedEmails = emails.filter(email => { return !email.isRead })
+        categorizedEmails = emails.filter(email => { return (!(email.isRead) && email.to === 'Me') })
     }
     else if (category === 'inbox' || !category) {
         categorizedEmails = emails.filter(email => { return !(email.by === 'Me') })
@@ -58,10 +59,10 @@ function _getFilteredEmails(emails, filterBy) {
         categorizedEmails = emails.filter(email => { return email.by === 'Me' })
     }
     else {
-        categorizedEmails = emails.filter(email => { return (email.lable === category) })
+        categorizedEmails = emails.filter(email => { return (email.lable.includes(category)) })
     }
     return categorizedEmails.filter(categorizedEmail => {
-        return categorizedEmail.body.includes(search)
+        return (categorizedEmail.body.toUpperCase().includes(search.toUpperCase()) || categorizedEmail.subject.toUpperCase().includes(search.toUpperCase()))
     })
 }
 
@@ -78,6 +79,16 @@ function _addEmail(emailToSave) {
     emails = [email, ...emails]
     _saveEmailsToStorage(emails);
     return Promise.resolve()
+}
+
+function _updateEmail(emailToUpdate, property, value) {
+    let emails = _loadEmailsFromStorage()
+    emailToUpdate[property] = value;
+    var updateIndex = emails.findIndex((email) => email.id === emailToUpdate.id);
+    emails.splice(updateIndex, 1);
+    emails.push(emailToUpdate);
+    _saveEmailsToStorage(emails);
+    return Promise.resolve();
 }
 
 function removeEmail(emailId) {
@@ -104,6 +115,11 @@ function getPreviewTxt(content) {
 function getIsReadTxt(isRead) {
     if (isRead) return 'Read';
     return 'Unread';
+}
+
+function getPreviewClass(isRead) {
+    if (isRead) return 'email-preview read';
+    return 'email-preview';
 }
 
 function _saveEmailsToStorage(emails) {
