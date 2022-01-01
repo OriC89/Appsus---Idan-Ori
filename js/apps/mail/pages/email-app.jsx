@@ -12,32 +12,21 @@ export class EmailApp extends React.Component {
   state = {
     emails: null,
     filterBy: { category: null, search: "" },
+    sortBy: "sentAt",
   };
 
   componentDidMount() {
     this.loadEmails();
   }
 
-  // get ctgSearchParam() {
-  //   const urlSearchParams = new URLSearchParams(this.props.location.search);
-  //   return urlSearchParams.get("ctg");
-  // }
-
-  // get carsToDisplay() {
-  //   const { emails } = this.state;
-  //   const ctg = this.ctgSearchParam;
-  //   return emails.filter((email) => !ctg || email.ctg === ctg);
-  // }
-
   loadEmails = () => {
     emailService
       .query({ category: "unRead", search: "" })
       .then((unReadEmails) => {
-        console.log(unReadEmails.length);
         eventBusService.emit("unread-count", unReadEmails.length);
       });
-    const { filterBy } = this.state;
-    emailService.query(filterBy).then((emails) => {
+    const { filterBy, sortBy } = this.state;
+    emailService.query(filterBy, sortBy).then((emails) => {
       this.setState({ emails });
     });
   };
@@ -46,11 +35,19 @@ export class EmailApp extends React.Component {
     this.setState({ filterBy }, this.loadEmails);
   };
 
+  setSort = (sortBy) => {
+    this.setState({ sortBy }, this.loadEmails);
+  };
+
   render() {
     const { emails } = this.state;
     return (
       <section className="email-app">
-        <EmailNav onSetFilter={this.onSetFilter} emails={emails} />
+        <EmailNav
+          onSetFilter={this.onSetFilter}
+          setSort={this.setSort}
+          emails={emails}
+        />
         <Switch>
           <Route
             exact

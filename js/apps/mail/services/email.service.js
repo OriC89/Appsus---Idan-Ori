@@ -18,10 +18,11 @@ const KEY = 'emailDB'
 const loggedinUser = { email: 'user@appsus.com', fullname: 'Mahatma Appsus' }
 
 const defaultEmails = [
-    { id: 'e104', by: 'Me', sendEmail: 'user@appsus.com', subject: 'Finally- Rent!!', body: 'I now have the money, honey!', isRead: true, sentAt: 1751163930594, to: 'Momo', isStarred: true },
-    { id: 'e101', by: 'Me', senderEmail: 'user@appsus.com', subject: 'Rent', body: 'I dont have money, honey!', isRead: true, sentAt: 1640788195648, to: 'Momo', isStarred: false },
-    { id: 'e103', by: 'Robert', senderEmail: 'roberto@walla.co.il', subject: 'Vegtables', body: 'Your Vegtables are not selling quick enough, sadly i have to termenate our buisness relationship.. it has been great, i hope you get your rent money!', isRead: true, sentAt: 1551163930594, to: 'Me', isStarred: true },
     { id: 'e102', by: 'Momo', senderEmail: 'Momo@MomoHouse.com', subject: 'Rent', body: 'Youre behind with rent!', isRead: false, sentAt: 1551133930594, to: 'Me', isStarred: true },
+    { id: 'e103', by: 'Robert', senderEmail: 'roberto@walla.co.il', subject: 'Vegtables', body: 'Your Vegtables are not selling quick enough, sadly i have to termenate our buisness relationship.. it has been great, i hope you get your rent money!', isRead: true, sentAt: 1551163930594, to: 'Me', isStarred: true },
+    { id: 'e101', by: 'Me', senderEmail: 'user@appsus.com', subject: 'Rent', body: 'I dont have money, honey!', isRead: true, sentAt: 1640788195648, to: 'Momo', isStarred: false },
+    { id: 'e104', by: 'Me', sendEmail: 'user@appsus.com', subject: 'MONEY', body: 'hi mom i need money i love you!', isRead: true, sentAt: 1640788205648, to: 'Mom', isStarred: true },
+    { id: 'e104', by: 'Mom', sendEmail: 'mom@parents.com', subject: 'MONEY', body: 'sure honey! here are 100,000 dollars!', isRead: false, sentAt: 1640788215648, to: 'Me', isStarred: true }
 
 ]
 
@@ -33,11 +34,15 @@ function _createEmails() {
     _saveEmailsToStorage(emails);
 }
 
-function query(filterBy) {
+function query(filterBy, sortBy) {
     const emails = _loadEmailsFromStorage();
     if (!emails || !emails.length) return Promise.resolve(defaultEmails);
     const filteredEmails = _getFilteredEmails(emails, filterBy);
-    return Promise.resolve(filteredEmails);
+    if (!filteredEmails.length) return Promise.resolve(filteredEmails);
+    else {
+        const sortedEmails = _getSortedEmails(filteredEmails, sortBy);
+        return Promise.resolve(sortedEmails);
+    }
 }
 
 function _getFilteredEmails(emails, filterBy) {
@@ -45,6 +50,7 @@ function _getFilteredEmails(emails, filterBy) {
     var categorizedEmails = [];
     if (category === 'starred') {
         categorizedEmails = emails.filter(email => { return email.isStarred })
+
     }
     else if (category === 'read') {
         categorizedEmails = emails.filter(email => { return (email.isRead && email.to === 'Me') })
@@ -61,10 +67,25 @@ function _getFilteredEmails(emails, filterBy) {
     else {
         categorizedEmails = emails.filter(email => { return (email.lable.includes(category)) })
     }
+    if (!categorizedEmails) return [];
     return categorizedEmails.filter(categorizedEmail => {
         return (categorizedEmail.body.toUpperCase().includes(search.toUpperCase()) || categorizedEmail.subject.toUpperCase().includes(search.toUpperCase()))
     })
 }
+
+function _getSortedEmails(emails, sortBy) {
+    var sortedEmails = emails.sort((a, b) => {
+        if (a[sortBy] < b[sortBy]) {
+            return 1;
+        }
+        if (a[sortBy] > b[sortBy]) {
+            return -1;
+        }
+        return 0;
+    })
+    return sortedEmails;
+}
+
 
 function saveEmail(email) {
     return email.id ? _updateEmail(email) : _addEmail(email)
