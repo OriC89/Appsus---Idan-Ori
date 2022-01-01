@@ -1,7 +1,7 @@
 import { NotePreview } from "./NotePreview.jsx"
 import { utilService } from "../../../services/util.service.js"
 
-export function NotesList({ notes, onRemoveNote, onToggleNotePin, onDuplicateNote, onEditMode, selectedNote, onEditedNoteSave, onPrevPage, onChangeNoteColor }) {
+export function NotesList({ notes, onRemoveNote, onToggleNotePin, onDuplicateNote, onEditMode, selectedNote, onEditedNoteSave, onUnselectedNote, onChangeNoteColor }) {
 if(!notes || !notes.length) return (
     <h1 className="no-notes">THERE ARE NO NOTES TO SHOW</h1>
 )
@@ -14,7 +14,7 @@ if(!notes || !notes.length) return (
         onEditMode={onEditMode}
         selectedNote={selectedNote}
         onEditedNoteSave={onEditedNoteSave}
-        onPrevPage={onPrevPage}
+        onUnselectedNote={onUnselectedNote}
         onChangeNoteColor={onChangeNoteColor}
     />)
 

@@ -98,6 +98,24 @@ label {
     transition: 0.3s;
 }
 
+.note-filter .filter-input {
+    border-radius: 5%;
+    height: 2rem;
+    border: 1px solid #c9c9c9;
+}
+
+.note-filter .filter-input[type="text"]::placeholder {
+    position: absolute;
+    padding: 8px 10px;
+}
+
+.note-filter {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    font-size: 1rem;
+}
+
 .choose-type-btns i:hover {
     transform: scale(1.5);
 }
@@ -150,7 +168,7 @@ label {
     border-radius: 10%;
 }
 
-.show-colors {
+.toggle-colors {
     opacity: 1;
     pointer-events: visible;
 }
@@ -159,6 +177,10 @@ label {
     text-align: center;
     font-size: 0.9rem;
     font-weight: 100;
+}
+
+.i-notes {
+    margin: 10px 50px;
 }
 
 
@@ -188,7 +210,7 @@ label {
     align-items: center;
 }
 
-.notes-general {
+.notes-unpinned {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -314,7 +336,7 @@ label {
     margin-block-end: 5rem;
 }
 
-.edit-func {
+.edit-actions-btns {
     display: flex;
     max-width: none;
     justify-content: space-evenly;

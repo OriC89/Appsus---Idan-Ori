@@ -25,10 +25,10 @@ export function App() {
             <Route exact path="/" component={Home} />
           </Switch>
         </main>
+          <UserMsg />
         <footer>
           <AppFooter />
         </footer>
-        <UserMsg />
       </section>
     </Router>
   );

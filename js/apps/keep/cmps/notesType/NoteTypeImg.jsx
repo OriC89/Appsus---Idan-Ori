@@ -1,4 +1,4 @@
-export function NoteTypeImg({ noteId, info, selectedNote, onEditedNoteSave, onPrevPage }) {
+export function NoteTypeImg({ noteId, info, selectedNote, onEditedNoteSave, onUnselectedNote }) {
 
     const urlRef = React.createRef()
     const urlTitle = React.createRef()
@@ -29,7 +29,7 @@ export function NoteTypeImg({ noteId, info, selectedNote, onEditedNoteSave, onPr
                     <input type="text" defaultValue={info.title} ref={urlTitle} />
                     <div className="edit-buttons">
                         <button onClick={() => handleRef()} className="btn edit-save" > SAVE! </button>
-                        <button onClick={() => onPrevPage()} className="btn edit-goback fas fa-times" ></button>
+                        <button onClick={() => onUnselectedNote()} className="btn edit-goback fas fa-times" ></button>
                     </div>
                 </div>
             </div>
