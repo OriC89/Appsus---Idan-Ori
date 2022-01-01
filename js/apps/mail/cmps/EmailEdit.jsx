@@ -42,12 +42,15 @@ export class EmailEdit extends React.Component {
 
   onSendEmail = (ev) => {
     ev.preventDefault();
-    eventBusService.emit("adding-finished", false);
     const { email } = this.state;
-    emailService.saveEmail(email).then(() => {
-      eventBusService.emit("user-msg", { txt: "Sent !", type: "success" });
-      this.onGoBack();
-    });
+    if (!email.to) alert("Please enter Email");
+    else {
+      eventBusService.emit("adding-finished", false);
+      emailService.saveEmail(email).then(() => {
+        eventBusService.emit("user-msg", { txt: "Sent !", type: "success" });
+        this.onGoBack();
+      });
+    }
   };
 
   render() {

@@ -57,8 +57,9 @@ class _EmailNav extends React.Component {
   };
 
   getWriteEmailClass = () => {
-    if (this.state.isAdding) return "nav-btn clean-link selected-btn";
-    else return "nav-btn clean-link";
+    if (this.state.isAdding)
+      return "compose-btn nav-btn clean-link selected-btn";
+    else return "compose-btn nav-btn clean-link";
   };
 
   setIsWriting = () => {
@@ -76,8 +77,8 @@ class _EmailNav extends React.Component {
         >
           ➕ Write Email
         </Link>
-        <div className="search-input">
-          Search Emails:
+        <div className="search-input nav-btn">
+          🔎
           <input
             ref={this.inputRef}
             placeholder="Enter Text"
@@ -87,33 +88,35 @@ class _EmailNav extends React.Component {
             onChange={this.onSetSearch}
           />
         </div>
-        <div
-          id="inbox"
-          onClick={this.onSetCategory}
-          className={this.getHighlightFilter("inbox", category)}
-        >
-          📥 Inbox
-        </div>
-        <div
-          id="read"
-          onClick={this.onSetCategory}
-          className={this.getHighlightFilter("read", category)}
-        >
-          Read Messages
-        </div>
-        <div
-          id="unRead"
-          onClick={this.onSetCategory}
-          className={this.getHighlightFilter("unRead", category)}
-        >
-          Unread Messages({this.state.unReadCount})
-        </div>
-        <div
-          id="sentMail"
-          onClick={this.onSetCategory}
-          className={this.getHighlightFilter("sentMail", category)}
-        >
-          Sent Messages
+        <div className="filters">
+          <div
+            id="inbox"
+            onClick={this.onSetCategory}
+            className={this.getHighlightFilter("inbox", category)}
+          >
+            📥 Inbox
+          </div>
+          <div
+            id="read"
+            onClick={this.onSetCategory}
+            className={this.getHighlightFilter("read", category)}
+          >
+            Read Messages
+          </div>
+          <div
+            id="unRead"
+            onClick={this.onSetCategory}
+            className={this.getHighlightFilter("unRead", category)}
+          >
+            Unread Messages({this.state.unReadCount})
+          </div>
+          <div
+            id="sentMail"
+            onClick={this.onSetCategory}
+            className={this.getHighlightFilter("sentMail", category)}
+          >
+            Sent Messages
+          </div>
         </div>
       </section>
     );

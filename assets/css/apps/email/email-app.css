@@ -8,7 +8,6 @@
 .mail-nav{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     min-height: 83vh;
     border-right-color: black;
     border-right-width: 2px;
@@ -31,8 +30,22 @@
   text-decoration: none;
   display: inline-block;
   font-size: 20px;
-  margin-top: 2px;
-  margin-bottom: 2px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.compose-btn{
+    height: 100px;
+    text-align: center;
+    padding-top: 14%;
+    background-color: cornflowerblue;
+    margin-top: 50px;
+    margin-bottom: 70px;
+}
+
+.filters{
+    display: flex;
+    flex-direction: column;
 }
 
 .selected-btn{
@@ -50,6 +63,8 @@
 }
 
 .email-preview{
+    padding-right: 30px;
+    padding-left: 30px;
     border-color: black;
     border-width: 2px;
     border-style: solid;
