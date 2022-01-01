@@ -36,15 +36,17 @@ export class KeepApp extends React.Component {
 
     onEditedNoteSave = (noteId, info) => {
         noteService.editNote(noteId, info)
-        this.setState({ selectedNote: null }, this.loadNotes())
+        this.setState({ selectedNote: null })
     }
 
     onCreateNote = (info) => {
-        noteService.createNote(info, this.state.inputType);
-        this.loadNotes()
+        noteService.createNote(info, this.state.inputType)
+            .then(() => {
+                this.loadNotes()
+            })
     }
 
-    onPrevPage = () => {
+    onUnselectedNote = () => {
         this.setState({ selectedNote: null })
     }
 
@@ -55,11 +57,11 @@ export class KeepApp extends React.Component {
 
     onShowModal = (type) => {
         switch (type) {
-            case 'Duplicated': eventBusService.emit('user-msg', { txt: `Duplicated!`, type: 'Duplicated', time: 2000 })
+            case 'Duplicated': eventBusService.emit('user-msg', { txt: `Duplicated!`, type: 'Duplicated', time: 3000 })
                 break
-            case 'Pinned': eventBusService.emit('user-msg', { txt: `Pinned to top!`, type: 'Pinned', time: 2000 })
+            case 'Pinned': eventBusService.emit('user-msg', { txt: `Pinned to top!`, type: 'Pinned', time: 3000 })
                 break
-            case 'Deleted': eventBusService.emit('user-msg', { txt: `Deleted!`, type: 'Deleted', time: 2000 })
+            case 'Deleted': eventBusService.emit('user-msg', { txt: `Deleted!`, type: 'Deleted', time: 3000 })
                 break
         }
     }
@@ -71,22 +73,26 @@ export class KeepApp extends React.Component {
     }
 
     onDuplicateNote = (noteId) => {
-        if (this.state.selectedNote) this.onShowModal('Duplicated')
         noteService.duplicateNote(noteId)
-        this.loadNotes()
+            .then(() => {
+                if (this.state.selectedNote) this.onShowModal('Duplicated')
+                this.loadNotes()
+            })
     }
 
     onRemoveNote = (noteId) => {
-        if (this.state.selectedNote) this.onShowModal('Deleted')
         noteService.removeNote(noteId).then(() => {
+            if (this.state.selectedNote) this.onShowModal('Deleted')
             this.loadNotes()
-            this.onPrevPage()
+            this.onUnselectedNote()
         })
     }
 
     onChangeNoteColor = (color, noteId) => {
         noteService.editNote(noteId, { backgroundColor: color })
-        this.loadNotes()
+            .then(() => {
+                this.loadNotes()
+            })
     }
 
     onSetFilter = (filterBy) => {
@@ -94,15 +100,14 @@ export class KeepApp extends React.Component {
     }
 
     render() {
-
         const { inputType, selectedNote, isSelectedColor } = this.state
         return (
             <div className="notes-app">
-                {selectedNote && <ScreenExpand isOpen={selectedNote} closeModal={this.onPrevPage} />}
+                {selectedNote && <ScreenExpand isOpen={selectedNote} closeModal={this.onUnselectedNote} />}
                 <NoteAdd inputType={inputType} setInputType={this.setInputType} creatNote={this.onCreateNote} />
                 <NoteFilter onSetFilter={this.onSetFilter} />
                 <section className="notes-cards notes-layout">
-                    <i title="Pinned Notes" className="center fas fa-thumbtack"></i>
+                    <i title="Pinned Notes" className="i-notes fas fa-thumbtack"></i>
                     <div className="notes-pinned">
                         <div className="cards-container">
                             <NotesList
@@ -113,15 +118,15 @@ export class KeepApp extends React.Component {
                                 onEditMode={this.onEditMode}
                                 selectedNote={selectedNote}
                                 onEditedNoteSave={this.onEditedNoteSave}
-                                onPrevPage={this.onPrevPage}
+                                onUnselectedNote={this.onUnselectedNote}
                                 onGetColor={this.onGetColor}
                                 isSelectedColor={isSelectedColor}
                                 onChangeNoteColor={this.onChangeNoteColor} />
                         </div>
                     </div>
 
-                    <h2 className="center">NOTES</h2>
-                    <div className="notes-general">
+                    <i title="Pinned Notes" className="i-notes fas fa-sticky-note"></i>
+                    <div className=".notes-unpinned">
                         <div className="cards-container">
                             <NotesList
                                 notes={this.state.notes.filter(note => !note.isPinned)}
@@ -131,7 +136,7 @@ export class KeepApp extends React.Component {
                                 onEditMode={this.onEditMode}
                                 selectedNote={selectedNote}
                                 onEditedNoteSave={this.onEditedNoteSave}
-                                onPrevPage={this.onPrevPage}
+                                onUnselectedNote={this.onUnselectedNote}
                                 onGetColor={this.onGetColor}
                                 isSelectedColor={isSelectedColor}
                                 onChangeNoteColor={this.onChangeNoteColor}

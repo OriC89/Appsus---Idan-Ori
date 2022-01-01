@@ -1,4 +1,4 @@
-export function NoteTypeTxt({ noteId, info, selectedNote, onEditedNoteSave, onPrevPage, isColor }) {
+export function NoteTypeTxt({ noteId, info, selectedNote, onEditedNoteSave, onUnselectedNote, isColor }) {
     let setInfo;
 
     const txtRef = React.createRef()
@@ -22,7 +22,7 @@ export function NoteTypeTxt({ noteId, info, selectedNote, onEditedNoteSave, onPr
                 </form>
                 <div className="edit-buttons">
                     <button className="btn edit-save" onClick={() => handleRef()}> SAVE! </button>
-                    <button className="btn edit-goback fas fa-times" onClick={() => onPrevPage()}></button>
+                    <button className="btn edit-goback fas fa-times" onClick={() => onUnselectedNote()}></button>
                 </div>
             </div>
         )

@@ -97,6 +97,7 @@ function createNote(info, type) {
     }
     gNotes.push(newNote)
     _saveNotesToStorage()
+    return Promise.resolve()
 }
 
 // DELETE NOTE
@@ -120,6 +121,7 @@ function editNote(noteId, info) {
         }
         _saveNotesToStorage()
     }
+    return Promise.resolve()
 }
 
 // PIN/UNPIN NOTE
@@ -140,6 +142,7 @@ function duplicateNote(noteId) {
         gNotes.push(newCopy)
         _saveNotesToStorage()
     }
+    return Promise.resolve()
 }
 
 // GET NOTE BY ID 

@@ -1,4 +1,4 @@
-export function NoteTypeVideo({ noteId, info, selectedNote, onEditedNoteSave, onPrevPage }) {
+export function NoteTypeVideo({ noteId, info, selectedNote, onEditedNoteSave, onUnselectedNote }) {
 
     let userUrl
     const videoRef = React.createRef()
@@ -27,7 +27,7 @@ export function NoteTypeVideo({ noteId, info, selectedNote, onEditedNoteSave, on
                     <input type="text" defaultValue={userUrl} ref={videoRef} />
                     <div className="edit-buttons">
                         <button className="btn edit-save" onClick={() => handleRef()}> SAVE! </button>
-                        <button className="btn edit-goback fas fa-times" onClick={() => onPrevPage()}></button>
+                        <button className="btn edit-goback fas fa-times" onClick={() => onUnselectedNote()}></button>
                     </div>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-export function NoteTypeTodos({ noteId, info, selectedNote, onEditedNoteSave, onPrevPage }) {
+export function NoteTypeTodos({ noteId, info, selectedNote, onEditedNoteSave, onUnselectedNote }) {
 
     const todos = info.todos
     const todosRef = React.createRef();
@@ -21,13 +21,13 @@ export function NoteTypeTodos({ noteId, info, selectedNote, onEditedNoteSave, on
         ev.target.classList.toggle('put-line');
     }
     if (!selectedNote || selectedNote != noteId) {
-    
+
         return (
             <div className="todos">
                 <h2>{info.label}</h2>
                 < ul className="todos-list" >
                     {todos.map((todo, idx) =>
-                        <li title="toggle done / undone" onClick={toggleTodo} className="todo" key={`${todo.id}-${idx}`}>{todo.txt}</li>)}
+                        <li title="Done / Undone" onClick={toggleTodo} className="todo" key={`${todo.id}-${idx}`}>{todo.txt}</li>)}
                 </ul>
             </div >
         )
@@ -41,13 +41,11 @@ export function NoteTypeTodos({ noteId, info, selectedNote, onEditedNoteSave, on
                             <li className="edit-list" key={`${todo.id}-${idx}`}><input type="text" defaultValue={todo.txt} /> </li>)}
                     </ul>
                 </div>
-                <div className="edit-buttons ">
+                <div className="edit-buttons">
                     <button className="btn edit-save" onClick={() => handleRef()}> SAVE! </button>
-                    <button className="btn edit-goback fas fa-times" onClick={() => onPrevPage()}></button>
+                    <button className="btn edit-goback fas fa-times" onClick={() => onUnselectedNote()}></button>
                 </div>
-
-
-            </div >
+            </div>
 
         )
     }
