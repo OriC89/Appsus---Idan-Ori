@@ -21,6 +21,7 @@ export class EmailDetails extends React.Component {
   };
 
   onGoBack = () => {
+    this.props.loadEmails();
     this.props.history.push("/email-app");
   };
 
@@ -48,8 +49,6 @@ export class EmailDetails extends React.Component {
         </div>
         <div className="email-body">{email.body}</div>
         <button onClick={this.onRemoveEmail}>Remove this Email</button>
-
-        <Link to="/email-app">Go Back</Link>
       </section>
     );
   }

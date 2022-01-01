@@ -37,10 +37,12 @@ export class EmailEdit extends React.Component {
 
   onGoBack = () => {
     this.props.history.push("/email-app");
+    this.props.loadEmails();
   };
 
   onSendEmail = (ev) => {
     ev.preventDefault();
+    eventBusService.emit("adding-finished", false);
     const { email } = this.state;
     emailService.saveEmail(email).then(() => {
       eventBusService.emit("user-msg", { txt: "Sent !", type: "success" });

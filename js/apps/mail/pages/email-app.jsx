@@ -52,12 +52,24 @@ export class EmailApp extends React.Component {
       <section className="email-app">
         <EmailNav onSetFilter={this.onSetFilter} emails={emails} />
         <Switch>
-          <Route exact path="/email-app/edit" component={EmailEdit} />
-          <Route exact path="/email-app/:emailId" component={EmailDetails} />
+          <Route
+            exact
+            path="/email-app/edit"
+            render={(props) => (
+              <EmailEdit {...props} loadEmails={this.loadEmails} />
+            )}
+          />
+          <Route
+            exact
+            path="/email-app/:emailId"
+            render={(props) => (
+              <EmailDetails {...props} loadEmails={this.loadEmails} />
+            )}
+          />
           <Route
             exact
             path="/email-app"
-            render={(props) => <EmailList emails={emails} />}
+            render={(props) => <EmailList emails={emails} {...props} />}
           />
         </Switch>
       </section>
