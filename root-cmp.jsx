@@ -25,7 +25,7 @@ export function App() {
             <Route exact path="/" component={Home} />
           </Switch>
         </main>
-          <UserMsg />
+        <UserMsg />
         <footer>
           <AppFooter />
         </footer>

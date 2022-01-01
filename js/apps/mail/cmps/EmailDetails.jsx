@@ -46,9 +46,13 @@ export class EmailDetails extends React.Component {
       <section className="email-details">
         <div className="email-subject">{email.subject}</div>
         <div className="main-details">
-          {utilService.getFormattedDateNTime(email.sentAt).time},
-          {utilService.getFormattedDateNTime(email.sentAt).date}
-          {email.to}
+          <div>
+            <span>{email.by}</span>, {email.senderEmail}
+          </div>
+          <div className="send-time">
+            {utilService.getFormattedDateNTime(email.sentAt).time},
+            {utilService.getFormattedDateNTime(email.sentAt).date}
+          </div>
         </div>
         <div className="email-body">{email.body}</div>
         <button onClick={this.onRemoveEmail}>Remove this Email</button>
