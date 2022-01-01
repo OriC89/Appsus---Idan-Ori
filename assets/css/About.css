@@ -1,18 +1,65 @@
 .about-page {
+    font-family: Tahoma, Verdana, sans-serif;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    margin: 5rem 0rem;
+    align-self: center;
     text-align: center;
-    width: 100%;
+    margin: 1rem 0rem;
     color: rgb(0, 0, 0);
 }
 
 .about-info {
     display: flex;
     flex-direction: column;
-    width: 50%;
 }
 
 .about-page h1 {
     font-size: 2rem;
+}
+
+.about-img {
+    width: 500px;
+    background-color: #363636;
+}
+
+.about-page .about-info h1 {
+    margin-bottom: 1rem;
+}
+
+.about-page .about-info p {
+    margin-bottom: 1rem;
+}
+
+.who-we-are-img {
+    margin: 1rem 1rem;
+    border-radius: 50%;
+    border: 2px solid black;
+    width: 200px;
+}
+
+.who-we-are-info {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.who-we-are-info h1 {
+    font-size: 1rem;
+}
+
+@media (min-width: 770px) {
+    .about-page {
+        margin-left: 210px;
+        width: 80%;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+    }
+    .who-we-are {
+        margin: 4.1rem 0rem;
+    }
+    .who-we-are-info {
+        justify-content: center;
+        gap: 9rem;
+    }
 }

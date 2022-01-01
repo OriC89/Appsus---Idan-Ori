@@ -70,24 +70,20 @@ class _EmailNav extends React.Component {
     const { category } = this.state.filterBy;
     return (
       <section className="mail-nav">
-        <Link
-          className={this.getWriteEmailClass()}
-          to="/email-app/edit"
-          onClick={this.setIsWriting}
-        >
-          ➕ Write Email
-        </Link>
-        <div className="search-input nav-btn">
-          🔎
+        <div className="search-input">
           <input
             ref={this.inputRef}
-            placeholder="Enter Text"
+            placeholder="Search"
             name="search"
             type="text"
             id="search"
             onChange={this.onSetSearch}
           />
         </div>
+        <Link className={this.getWriteEmailClass()}
+          to="/email-app/edit" onClick={this.setIsWriting}>
+          ➕ Compose Email
+        </Link>
         <div className="filters">
           <div
             id="inbox"

@@ -44,7 +44,7 @@ const gNotes = storageService.load(NOTES_KEY) || [{
     {
         id: utilService.makeId(5),
         type: "note-video",
-        info: { url: "https://www.youtube.com/watch?v=fqJmgOZlHQM&t=13s", title: "Victory in the cup finals!" },
+        info: { url: "https://www.youtube.com/watch?v=ZuVcOwXLnyQ", title: "Birds tier list" },
         style: { backgroundColor: "#d8bfd8" },
         isPinned: false
     },

@@ -50,7 +50,6 @@ label {
     border: 1px rgba(87, 87, 87, 0.349) solid;
     border-radius: 5px;
     padding: 0.5rem;
-    margin-block-start: 1rem;
     transition: 0.3s;
 }
 
@@ -116,7 +115,7 @@ label {
     justify-content: center;
     width: 200px;
     font-size: 1rem;
-    margin: 20px 0px;
+    margin: 2rem 0rem;
 }
 
 .note-filter-label {
@@ -421,7 +420,7 @@ li.edit-list {
         align-items: center;
     }
     .edit-save:hover {
-        background-color: #008000;
-        color: #f1f1f1;
+        background-color: #7cdd7c;
+        color: #eeebeb;
     }
 }

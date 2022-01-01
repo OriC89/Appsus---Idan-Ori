@@ -10,7 +10,7 @@ class _AppHeader extends React.Component {
         <nav className="nav-bar">
           <NavLink activeClassName="my-active" exact to="/">
             <i title="homepage" className="">
-              HomePage
+              Home
             </i>
           </NavLink>
           <NavLink to="/email-app">
