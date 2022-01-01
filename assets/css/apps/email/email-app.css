@@ -3,6 +3,7 @@
 .email-app{
     display: flex;
     height: 70vh;
+    font-family: 'Open Sans Condensed', sans-serif;
 }
 
 .mail-nav{
@@ -20,7 +21,6 @@
 }
 
 .nav-btn{
-  font-family: 'Open Sans Condensed', sans-serif;
   border-radius: 4px;
   background-color: #04AA6D;
   border: none;
@@ -37,8 +37,8 @@
 .compose-btn{
     height: 100px;
     text-align: center;
-    padding-top: 14%;
-    background-color: cornflowerblue;
+    padding-top: 17%;
+    background-color: #04AA6D;
     margin-top: 50px;
     margin-bottom: 70px;
 }
@@ -60,6 +60,12 @@
 .email-list{
     font-family: 'Open Sans Condensed', sans-serif;
    flex-grow: 1;
+}
+
+.no-emails-msg{
+    align-self: center;
+    margin-left: 50%;
+    transform: translateX(-150%);
 }
 
 .email-preview{
@@ -91,7 +97,8 @@
     display: flex;
     flex-direction: column;
     margin-left: 20px;
-    margin-top: 20px;
+    margin-top: 40px;
+    font-size: 20px;
 }
 
 .email-edit input{
@@ -107,6 +114,32 @@
     height: 300px;
     width:500px;
     text-align:unset
+}
+
+.email-details{
+    padding:30px;
+    width: 60%;
+}
+
+.email-details .email-subject{
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.email-details .main-details{
+    display: flex;
+    justify-content: space-between;
+    color: rgb(143, 143, 143);
+}
+
+.email-details .main-details span{
+    color:black;
+    font-size: 18px;
+}
+
+.email-body{
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 @media only screen and (min-width: 780px){

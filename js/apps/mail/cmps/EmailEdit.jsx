@@ -91,7 +91,7 @@ export class EmailEdit extends React.Component {
               onChange={this.handleChange}
             />
           </div>
-          <button className="primary-btn ">Send Email</button>
+          <button className="primary-btn "> ➤ Send Email</button>
         </form>
       </section>
     );

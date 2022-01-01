@@ -3,7 +3,8 @@
 import { EmailPreview } from "./EmailPreview.jsx";
 
 export function EmailList({ emails }) {
-  if (!emails || !emails.length) return <h1>There are no emails to show</h1>;
+  if (!emails || !emails.length)
+    return <h1 className="no-emails-msg">There are no emails to show</h1>;
   return (
     <section className="email-list">
       {emails.map((email) => (
