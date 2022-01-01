@@ -1,14 +1,15 @@
 header {
-    background-color: #f9cb4c;
+    font-family: Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #363636;
     padding: 0 0.5rem;
-    height: 50px;
+    height: 70px;
 }
 
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 50px;
+    height: 70px;
     padding: 0 0.5rem;
 }
 
@@ -22,11 +23,21 @@ header {
     font-family: Tahoma, Geneva, Verdana, sans-serif;
     text-decoration: none;
     font-size: 1rem;
-    color: #000000;
+    color: #ffffff;
     transition: 0.3s;
 }
 
 .nav-bar a i:hover {
     color: rgb(255, 255, 255);
     transform: scale(1.1)
+}
+
+.logo-img {
+    width: 70px;
+}
+
+@media (min-width: 770px) {
+    .logo-img {
+        margin-left: 150px;
+    }
 }

@@ -28,7 +28,7 @@ export class NoteFilter extends React.Component {
         const { filterBy: { type, txt } } = this.state
         return (
             <form className="note-filter" onSubmit={this.onSubmitFilter}>
-                <label htmlFor="by-type">Type</label>
+                <label className="note-filter-label" htmlFor="by-type">Type</label>
                 <input
                     className="filter-input"
                     placeholder="txt / img /todos / video"
@@ -38,7 +38,7 @@ export class NoteFilter extends React.Component {
                     name="type"
                     value={type}
                     onChange={this.handleChange} />
-                <label htmlFor="by-txt">Text</label>
+                <label className="note-filter-label" htmlFor="by-txt">Text</label>
                 <input
                     className="filter-input"
                     placeholder="Free Text"
