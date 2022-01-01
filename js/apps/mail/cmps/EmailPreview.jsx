@@ -4,7 +4,7 @@ import { utilService } from "../../../services/util.service.js";
 
 export function EmailPreview({ email }) {
   return (
-    <div className="email-preview">
+    <div className={emailService.getPreviewClass(email.isRead)}>
       <Link className=" clean-link" to={`/email-app/${email.id}`}>
         <div className="preview-header">
           <h4 className="is-read">

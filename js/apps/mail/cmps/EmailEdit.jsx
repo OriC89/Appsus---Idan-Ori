@@ -69,10 +69,10 @@ export class EmailEdit extends React.Component {
           <div className="edit-input">
             Title:{" "}
             <input
-              placeholder="Enter Title"
-              name="title"
+              placeholder="Enter Subject"
+              name="subject"
               type="text"
-              id="title"
+              id="subject"
               onChange={this.handleChange}
             />
           </div>
@@ -80,7 +80,7 @@ export class EmailEdit extends React.Component {
           <div className="edit-input">
             Message:
             <br />
-            <input
+            <textarea
               className="message-body"
               name="body"
               type="text"

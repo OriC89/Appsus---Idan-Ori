@@ -27,7 +27,7 @@ class _EmailNav extends React.Component {
 
   onSetSearch = ({ target }) => {
     if (this.state.isAdding) return;
-    const value = target.value;
+    var value = target.value;
     this.setState(
       (prevState) => ({ filterBy: { ...prevState.filterBy, search: value } }),
       () => {
