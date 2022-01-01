@@ -8,7 +8,7 @@ class _EmailNav extends React.Component {
       category: "inbox",
       search: "",
     },
-    sortBy: null,
+    sortBy: "sentAt",
     isAdding: false,
   };
 
@@ -66,11 +66,19 @@ class _EmailNav extends React.Component {
     this.state.isAdding = !this.state.isAdding;
   };
 
+  onSetSort = ({ target }) => {
+    const sortBy = target.value;
+    this.setState({ sortBy }, () => {
+      this.props.setSort(this.state.filterBy);
+      this.props.history.push("/email-app");
+    });
+  };
+
   render() {
     const { category } = this.state.filterBy;
     return (
       <section className="mail-nav">
-        <div className="search-input">
+        <div className="search-input nav-btn">
           <input
             ref={this.inputRef}
             placeholder="Search"
@@ -80,8 +88,11 @@ class _EmailNav extends React.Component {
             onChange={this.onSetSearch}
           />
         </div>
-        <Link className={this.getWriteEmailClass()}
-          to="/email-app/edit" onClick={this.setIsWriting}>
+        <Link
+          className={this.getWriteEmailClass()}
+          to="/email-app/edit"
+          onClick={this.setIsWriting}
+        >
           ➕ Compose Email
         </Link>
         <div className="filters">

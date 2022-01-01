@@ -39,29 +39,29 @@ export class EmailApp extends React.Component {
     const { emails } = this.state;
     return (
       <section className="email-app">
-          <EmailNav onSetFilter={this.onSetFilter} emails={emails} />
-          <Switch>
-            <Route
-              exact
-              path="/email-app"
-              render={(props) => <EmailList emails={emails} {...props} />}
-            />
-        <Route
-          exact
-          path="/email-app/:emailId"
-          render={(props) => (
-            <EmailDetails {...props} loadEmails={this.loadEmails} />
-          )}
-        />
-        <Route
-          exact
-          path="/email-app/edit"
-          render={(props) => (
-            <EmailEdit {...props} loadEmails={this.loadEmails} />
-          )}
-        />
-      </Switch>
-      </section >
+        <EmailNav onSetFilter={this.onSetFilter} emails={emails} />
+        <Switch>
+          <Route
+            exact
+            path="/email-app/edit"
+            render={(props) => (
+              <EmailEdit {...props} loadEmails={this.loadEmails} />
+            )}
+          />
+          <Route
+            exact
+            path="/email-app/:emailId"
+            render={(props) => (
+              <EmailDetails {...props} loadEmails={this.loadEmails} />
+            )}
+          />
+          <Route
+            exact
+            path="/email-app"
+            render={(props) => <EmailList emails={emails} {...props} />}
+          />
+        </Switch>
+      </section>
     );
   }
 }
