@@ -15,7 +15,7 @@ export class UserMsg extends React.Component {
         this.timeoutId = setTimeout(this.onCloseMsg, msg.time)
       })
     })
-  } 
+  }
 
   componentWillUnmount() {
     this.removeEventBus()
@@ -29,10 +29,10 @@ export class UserMsg extends React.Component {
   render() {
     const { msg } = this.state
     if (!msg) return <React.Fragment></React.Fragment>
-    if (msg.type === 'Duplicated' || 'Pinned' ||'Deleted') return (
+    if (msg.type === 'Deleted' || 'Pinned' || 'Duplicated') return (
       <React.Fragment>
         <section className={`user-msg message`}>
-          <button className="user-msg-exit-btn" onClick={this.onCloseMsg}>X</button>
+          <button className="close-msg-btn" onClick={this.onCloseMsg}>X</button>
           <h1>{msg.txt}</h1>
         </section>
         <div className="user-msg-screen"></div>

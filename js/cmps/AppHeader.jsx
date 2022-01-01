@@ -5,7 +5,7 @@ class _AppHeader extends React.Component {
     return (
       <section className="header main-layout">
         <div className="logo">
-          <NavLink to="/"></NavLink>
+          <NavLink to="/"><img className="logo-img" src="assets/img/logo.png" /></NavLink>
         </div>
         <nav className="nav-bar">
           <NavLink activeClassName="my-active" exact to="/">

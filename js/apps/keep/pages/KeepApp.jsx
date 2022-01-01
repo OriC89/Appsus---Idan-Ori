@@ -103,9 +103,9 @@ export class KeepApp extends React.Component {
         const { inputType, selectedNote, isSelectedColor } = this.state
         return (
             <div className="notes-app">
+                <NoteFilter onSetFilter={this.onSetFilter} />
                 {selectedNote && <ScreenExpand isOpen={selectedNote} closeModal={this.onUnselectedNote} />}
                 <NoteAdd inputType={inputType} setInputType={this.setInputType} creatNote={this.onCreateNote} />
-                <NoteFilter onSetFilter={this.onSetFilter} />
                 <section className="notes-cards notes-layout">
                     <i title="Pinned Notes" className="i-notes fas fa-thumbtack"></i>
                     <div className="notes-pinned">

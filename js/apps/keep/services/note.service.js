@@ -38,14 +38,14 @@ const gNotes = storageService.load(NOTES_KEY) || [{
                 { txt: "Buy 3nd Monitor", doneAt: null },
             ],
         },
-        style: { backgroundColor: "#90EE90" },
+        style: { backgroundColor: "#ADD8E6" },
         isPinned: true
     },
     {
         id: utilService.makeId(5),
         type: "note-video",
         info: { url: "https://www.youtube.com/watch?v=fqJmgOZlHQM&t=13s", title: "Victory in the cup finals!" },
-        style: { backgroundColor: "#90EE90" },
+        style: { backgroundColor: "#d8bfd8" },
         isPinned: false
     },
     {
@@ -81,8 +81,8 @@ function query(filterBy = null) {
 function _getFilteredNotes(notes, filterBy) {
     let { type, txt } = filterBy
     return notes.filter(note => {
-        return note.type.includes(type) && (note.info.txt ? note.info.txt.includes(txt) : false ||
-            note.info.title ? note.info.title.includes(txt) : false)
+        return note.type.toUpperCase().includes(type.toUpperCase()) && (note.info.txt ? note.info.txt.toUpperCase().includes(txt.toUpperCase()) : false ||
+            note.info.title ? note.info.title.toUpperCase().includes(txt.toUpperCase()) : false)
     })
 }
 
