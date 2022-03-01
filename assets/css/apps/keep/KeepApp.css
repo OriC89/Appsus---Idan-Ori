@@ -2,17 +2,15 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
     font-family: Tahoma, Geneva, Verdana, sans-serif;
-    width: 100%;
-    height: calc( 100vh - 110px);
-    z-index: 2000;
+    /* width: 100%; */
+    /* z-index: 2000; */
     padding-bottom: 30px;
+    margin-block-end: 30px;
 }
 
-
 /* Notes Input */
-
 .note.input {
     outline: none;
     border: #ffdead;
@@ -45,7 +43,7 @@ label {
 }
 
 .notes-input {
-    width: 50%;
+    width: 60%;
     background-color: rgb(255, 255, 255);
     border: 1px rgba(87, 87, 87, 0.349) solid;
     border-radius: 5px;
@@ -97,8 +95,15 @@ label {
     transition: 0.3s;
 }
 
+.note-filter {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    margin: 2rem 0rem;
+}
+
 .note-filter .filter-input {
-    border-radius: 3%;
+    border-radius: 7px;
     height: 2rem;
     margin: 0px 15px;
     border: 1px solid #c9c9c9;
@@ -107,19 +112,13 @@ label {
 
 .note-filter .filter-input[type="text"]::placeholder {
     position: absolute;
+    color: #b1adad;
     padding: 8px 10px;
-}
-
-.note-filter {
-    display: flex;
-    justify-content: center;
-    width: 200px;
-    font-size: 1rem;
-    margin: 2rem 0rem;
 }
 
 .note-filter-label {
     display: flex;
+    font-size: 12px;
     align-items: center;
     justify-content: center;
 }
@@ -128,7 +127,7 @@ label {
     transform: scale(1.5);
 }
 
-.choose-type-btns>* {
+.choose-type-btns > * {
     font-size: 1.2rem;
     padding-inline-end: 1rem;
 }
@@ -191,9 +190,10 @@ label {
     margin: 10px 50px;
 }
 
-
 /* Notes Layout */
-
+.main-layout{
+    padding:0px 10px;
+}
 .note {
     position: relative;
     background-color: rgb(255 212 212 / 16%);
@@ -234,10 +234,9 @@ label {
 }
 
 .cards-container:last-child {
-    columns: 4 250px;
+    columns: 3 180px;
     width: 100%;
 }
-
 
 /* Note actions */
 
@@ -253,7 +252,7 @@ label {
     font-size: 1.1rem;
     border-radius: 5px;
     z-index: 500;
-    animation: scale-up-center-modal .3s cubic-bezier(.39, .575, .565, 1.000) both;
+    animation: scale-up-center-modal 0.3s cubic-bezier(0.39, 0.575, 0.565, 1) both;
     box-shadow: 5px 2px 20px 8px #3d3d3dc9;
 }
 
@@ -281,10 +280,10 @@ label {
 .edit-inputs {
     display: flex;
     flex-direction: column;
-    width: 100%
+    width: 100%;
 }
 
-.edit-inputs>* {
+.edit-inputs > * {
     font-size: 1rem;
     margin-block-start: 1rem;
     padding: 0.5rem;
@@ -296,7 +295,7 @@ label {
     justify-content: center;
 }
 
-.edit-buttons>* {
+.edit-buttons > * {
     background: #f6f3ef;
     border-radius: 5px;
     cursor: pointer;
@@ -322,12 +321,12 @@ label {
     justify-content: space-between;
 }
 
-.edit-note>* {
+.edit-note > * {
     width: 100%;
     margin-block-start: 0.3rem;
 }
 
-.todos-list>* {
+.todos-list > * {
     margin-block-start: 0.3rem;
     font-size: 0.8rem;
     cursor: pointer;
@@ -354,20 +353,20 @@ label {
     padding: 2rem 2rem 3.5rem 2rem;
 }
 
-.edit-list>* {
+.edit-list > * {
     font-size: 1rem;
     padding: 0.5rem;
     border-radius: 5px;
     width: 100%;
 }
 
-.edit-inputs-todos>* {
+.edit-inputs-todos > * {
     font-size: 1.2rem;
     padding: 0.5rem;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-    width: 100%
+    width: 100%;
 }
 
 .note-todos.note-edit {
@@ -392,7 +391,7 @@ li.edit-list {
 
 @media (min-width: 770px) {
     .main-layout {
-        width: 80%;
+        padding:0px 200px;
         min-width: 700px;
     }
     .notes-layout {
@@ -400,7 +399,11 @@ li.edit-list {
     }
 }
 
-@media screen and (min-width:700px) {
+@media screen and (min-width: 700px) {
+    .main-layout {
+        padding:0px 10px;
+        /* min-width: 700px; */
+    }
     .note-actions {
         opacity: 0;
         display: flex;

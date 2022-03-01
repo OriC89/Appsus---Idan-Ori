@@ -27,7 +27,7 @@ export function App() {
         </main>
         <UserMsg />
         <footer>
-          <AppFooter />
+          {/* <AppFooter /> */}
         </footer>
       </section>
     </Router>
