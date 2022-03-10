@@ -98,6 +98,8 @@ label {
 .note-filter {
     display: flex;
     justify-content: space-between;
+    flex-direction: column;
+    gap:10px;
     font-size: 1rem;
     margin: 2rem 0rem;
 }
@@ -425,5 +427,8 @@ li.edit-list {
     .edit-save:hover {
         background-color: #7cdd7c;
         color: #eeebeb;
+    }
+    .note-filter{
+        flex-direction: row;
     }
 }
