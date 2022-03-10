@@ -22,7 +22,6 @@ export class EmailApp extends React.Component {
     emailService
       .query({ category: "unRead", search: "" })
       .then((unReadEmails) => {
-        console.log(unReadEmails.length);
         eventBusService.emit("unread-count", unReadEmails.length);
       });
     const { filterBy } = this.state;
